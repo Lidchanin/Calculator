@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Calculator.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Calculator
 {
-    public partial class App : Application
+    public partial class App
     {
         public App()
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new CalculatorPage());
         }
 
         protected override void OnStart()
