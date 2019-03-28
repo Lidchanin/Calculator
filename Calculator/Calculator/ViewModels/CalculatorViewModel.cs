@@ -11,8 +11,8 @@ namespace Calculator.ViewModels
 {
     public class CalculatorViewModel : BaseViewModel
     {
-        public string MathString { get; set; } = "";
-        public string ResultString { get; set; } = "";
+        public string ExpressionString { get; set; }
+        public string ResultString { get; set; }
 
         public ICommand ButtonPressCommand { get; set; }
 
@@ -23,7 +23,7 @@ namespace Calculator.ViewModels
 
         private void ButtonPress(CalculatorKey parameter)
         {
-            if (!string.IsNullOrEmpty(MathString))
+            if (!string.IsNullOrEmpty(ExpressionString))
             {
                 switch (parameter)
                 {
@@ -56,8 +56,7 @@ namespace Calculator.ViewModels
                 }
             }
 
-            MathString += parameter.GetText();
-            ResultString = "";
+            ExpressionString += parameter.GetText();
         }
 
         private void EqualClicked(CalculatorKey parameter)
@@ -65,32 +64,31 @@ namespace Calculator.ViewModels
             try
             {
                 var dt = new DataTable();
-                var temp = dt.Compute(MathString, "").ToString();
-                if (temp == "Infinity" || temp == "-Infinity")
+                var temp = dt.Compute(ExpressionString, string.Empty).ToString();
+                if (temp == ConstantHelper.PositiveInfinity || temp == ConstantHelper.NegativeInfinity)
                 {
-                    ResultString = "Dividing by zero!";
+                    ResultString = ConstantHelper.DividingByZero;
                 }
                 else
                 {
                     ResultString = temp;
-                    MathString = "";
                 }
             }
             catch (InvalidCastException)
             {
-                ResultString = "Incorrect expression";
+                ResultString = ConstantHelper.IncorrectExpression;
             }
             catch (SyntaxErrorException)
             {
-                var lastSymbol = MathString.Last().ToString();
+                var lastSymbol = ExpressionString.Last().ToString();
                 if (lastSymbol.IsOperationKey())
                 {
-                    MathString = MathString.Remove(MathString.Length - 1);
+                    ExpressionString = ExpressionString.Remove(ExpressionString.Length - 1, 1);
                     ButtonPress(parameter);
                 }
                 else
                 {
-                    ResultString = "Incorrect expression";
+                    ResultString = ConstantHelper.IncorrectExpression;
                 }
             }
             catch (Exception e)
@@ -101,39 +99,36 @@ namespace Calculator.ViewModels
 
         private void ClearClicked()
         {
-            MathString = "";
-            ResultString = "";
+            ExpressionString = string.Empty;
+            ResultString = string.Empty;
         }
 
         private void ClearEntryClicked()
         {
-            MathString = MathString.Remove(MathString.Length - 1);
-            ResultString = "";
+            ExpressionString = ExpressionString.Remove(ExpressionString.Length - 1, 1);
         }
 
         private void OperationClicked(CalculatorKey parameter)
         {
-            var lastSymbol = MathString.Last().ToString();
+            var lastSymbol = ExpressionString.Last().ToString();
 
             if (lastSymbol.IsOperationKey())
             {
-                MathString = MathString.Replace(lastSymbol, parameter.GetText());
+                ExpressionString = ExpressionString.Remove(ExpressionString.Length - 1, 1) + parameter.GetText();
             }
             else
             {
-                MathString += parameter.GetText();
-                ResultString = "";
+                ExpressionString += parameter.GetText();
             }
         }
 
         private void PointClicked(CalculatorKey parameter)
         {
-            var lastSymbol = MathString.Last().ToString();
+            var lastSymbol = ExpressionString.Last().ToString();
 
             if (lastSymbol != CalculatorKey.Point.GetText())
             {
-                MathString += parameter.GetText();
-                ResultString = "";
+                ExpressionString += parameter.GetText();
             }
         }
     }

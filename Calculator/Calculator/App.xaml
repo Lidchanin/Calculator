@@ -3,6 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Calculator.App">
     <Application.Resources>
-
+        <!--#region Colors-->
+        <Color x:Key="LightColor">White</Color>
+        <Color x:Key="DarkColor">Black</Color>
+        <Color x:Key="BlurColor">Gray</Color>
+        <!--#endregion Colors-->
+        
+        <!--#region NavigationPage Styles-->
+        <Style TargetType="NavigationPage">
+            <Setter Property="HasBackButton" Value="False"/>
+            <Setter Property="BarTextColor" Value="{StaticResource LightColor}"/>
+            <Setter Property="BarBackgroundColor" Value="{StaticResource BlurColor}"/>
+        </Style>
+        <!--#endregion NavigationPage Styles-->
     </Application.Resources>
 </Application>

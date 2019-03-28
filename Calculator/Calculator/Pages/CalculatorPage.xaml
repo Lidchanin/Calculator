@@ -2,51 +2,92 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
+             xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
              xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
-             x:Class="Calculator.Pages.CalculatorPage">
+             x:Class="Calculator.Pages.CalculatorPage"
+             Title="Calculator">
 
     <ContentPage.BindingContext>
         <viewModels:CalculatorViewModel/>
     </ContentPage.BindingContext>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="th1"
+                     Clicked="ChangeTheme_OnClicked"/>
+        <ToolbarItem Text="th2"
+                     Clicked="ChangeTheme2_OnClicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="OperationButtonStyle" TargetType="Button">
-                <!--<Style.Triggers>
-                    <DataTrigger TargetType="Button"
-                                 Binding="{Binding MathString.Length}" Value="0">
-                        <Setter Property="Button.IsEnabled" Value="False"/>
-                    </DataTrigger>
-                </Style.Triggers>-->
+            <Style x:Key="BaseLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource DarkColor}"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="HorizontalTextAlignment" Value="End"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+            </Style>
+
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="TextColor" Value="{DynamicResource LightColor}"/>
+                <Setter Property="Command" Value="{Binding ButtonPressCommand}"/>
+            </Style>
+
+            <Style x:Key="NumbersSectionButtonStyle" TargetType="Button"
+                   BasedOn="{StaticResource BaseButtonStyle}">
+            </Style>
+
+            <Style x:Key="OperationsSectionButtonStyle" TargetType="Button"
+                   BasedOn="{StaticResource BaseButtonStyle}">
+            </Style>
+
+            <Style x:Key="BaseGridStyle" TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="RowSpacing" Value="0"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid>
+        <Grid Style="{StaticResource BaseGridStyle}"
+              BackgroundColor="{DynamicResource LightColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
 
-            <!--#region Expression and Result-->
-            <StackLayout BackgroundColor="Gray" 
-                     Grid.Column="0"
-                     Grid.ColumnSpan="2"
-                     Grid.Row="0">
-                <Label Text="{Binding MathString}"/>
-                <Label Text="{Binding ResultString}"/>
-            </StackLayout>
-            <!--#endregion-->
+            <!--#region Expression and Result section-->
+            <ScrollView Orientation="Horizontal" 
+                        Padding="10,0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0">
+                <Label Text="{Binding ExpressionString}"
+                       Style="{StaticResource BaseLabelStyle}"/>
+            </ScrollView>
 
-            <!--#region Almost only Numbers-->
-            <Grid Grid.Column="0"
-                  Grid.Row="1"
-                  BackgroundColor="Turquoise">
+            <ScrollView Orientation="Horizontal"
+                        Padding="10,0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1">
+                <Label Text="{Binding ResultString}"
+                       Style="{StaticResource BaseLabelStyle}"/>
+            </ScrollView>
+            <!--#endregion Expression and Result section-->
+
+            <!--#region Numbers section-->
+            <Grid Style="{StaticResource BaseGridStyle}" 
+                  BackgroundColor="{DynamicResource DarkColor}"
+                  Grid.Column="0"
+                  Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -59,73 +100,74 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <Button Text="7"
+                <Button Text="{x:Static helpers:ConstantHelper.SevenButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Seven}"
                         Grid.Column="0"
-                        Grid.Row="0"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Seven}"/>
-                <Button Text="4"
+                        Grid.Row="0"/>
+                <Button Text="{x:Static helpers:ConstantHelper.FourButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Four}"
                         Grid.Column="0"
-                        Grid.Row="1"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Four}"/>
-                <Button Text="1"
+                        Grid.Row="1"/>
+                <Button Text="{x:Static helpers:ConstantHelper.OneButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.One}"
                         Grid.Column="0"
-                        Grid.Row="2"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.One}"/>
-                <Button Text="."
+                        Grid.Row="2"/>
+                <Button Text="{x:Static helpers:ConstantHelper.PointButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Point}"
                         Grid.Column="0"
-                        Grid.Row="3"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Point}"/>
-                <Button Text="8"
+                        Grid.Row="3"/>
+                <Button Text="{x:Static helpers:ConstantHelper.EightButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Eight}"
                         Grid.Column="1"
-                        Grid.Row="0"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Eight}"/>
-                <Button Text="5"
+                        Grid.Row="0"/>
+                <Button Text="{x:Static helpers:ConstantHelper.FiveButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Five}"
                         Grid.Column="1"
-                        Grid.Row="1"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Five}"/>
-                <Button Text="2"
+                        Grid.Row="1"/>
+                <Button Text="{x:Static helpers:ConstantHelper.TwoButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Two}"
                         Grid.Column="1"
-                        Grid.Row="2"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Two}"/>
-                <Button Text="0"
+                        Grid.Row="2"/>
+                <Button Text="{x:Static helpers:ConstantHelper.ZeroButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Zero}"
                         Grid.Column="1"
-                        Grid.Row="3"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Zero}"/>
-                <Button Text="9"
+                        Grid.Row="3"/>
+                <Button Text="{x:Static helpers:ConstantHelper.NineButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Nine}"
                         Grid.Column="2"
-                        Grid.Row="0"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Nine}"/>
-                <Button Text="6"
+                        Grid.Row="0"/>
+                <Button Text="{x:Static helpers:ConstantHelper.SixButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Six}"
                         Grid.Column="2"
-                        Grid.Row="1"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Six}"/>
-                <Button Text="3"
+                        Grid.Row="1"/>
+                <Button Text="{x:Static helpers:ConstantHelper.ThreeButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Three}"
                         Grid.Column="2"
-                        Grid.Row="2"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Three}"/>
-                <Button Text="="
+                        Grid.Row="2"/>
+                <Button Text="{x:Static helpers:ConstantHelper.EqualButtonText}"
+                        Style="{StaticResource NumbersSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Equal}"
                         Grid.Column="2"
-                        Grid.Row="3"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Equal}"/>
+                        Grid.Row="3"/>
             </Grid>
-            <!--#endregion-->
+            <!--#endregion Numbers section-->
 
-            <!--#region Operations-->
-            <Grid Grid.Column="1"
-                  Grid.Row="1"
-                  BackgroundColor="Tan">
+            <!--#region Operations section-->
+            <Grid Style="{StaticResource BaseGridStyle}" 
+                  BackgroundColor="{DynamicResource BlurColor}"
+                  Grid.Column="1"
+                  Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -135,49 +177,30 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <Button Text="C"
-                        Grid.Row="0"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Clear}"/>
-                <Button Text="CE"
-                        Grid.Row="1"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.ClearEntry}"/>
-                <Button Text="/"
-                        Grid.Row="2"
-                        Style="{StaticResource OperationButtonStyle}"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Divide}"/>
-                <Button Text="*"
-                        Grid.Row="3"
-                        Style="{StaticResource OperationButtonStyle}"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Multiply}"/>
-                <Button Text="-"
-                        Grid.Row="4"
-                        Style="{StaticResource OperationButtonStyle}"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Minus}"/>
-                <Button Text="+"
-                        Grid.Row="5"
-                        Style="{StaticResource OperationButtonStyle}"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.Plus}"/>
-                <Button Text="("
-                        Grid.Row="6"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.LeftBracket}"/>
-                <Button Text=")"
-                        Grid.Row="7"
-                        Command="{Binding ButtonPressCommand}"
-                        CommandParameter="{x:Static enums:CalculatorKey.RightBracket}"/>
+                <Button Text="{x:Static helpers:ConstantHelper.ClearButtonText}"
+                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.ClearEntry}"
+                        Grid.Row="0"/>
+                <Button Text="{x:Static helpers:ConstantHelper.DivideButtonText}"
+                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Divide}"
+                        Grid.Row="1"/>
+                <Button Text="{x:Static helpers:ConstantHelper.MultiplyButtonText}"
+                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Multiply}"
+                        Grid.Row="2"/>
+                <Button Text="{x:Static helpers:ConstantHelper.MinusButtonText}"
+                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Minus}"
+                        Grid.Row="3"/>
+                <Button Text="{x:Static helpers:ConstantHelper.PlusButtonText}"
+                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKey.Plus}"
+                        Grid.Row="4"/>
             </Grid>
-            <!--#endregion-->
+            <!--#endregion Operations section-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>
