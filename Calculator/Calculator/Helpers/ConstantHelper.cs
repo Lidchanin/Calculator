@@ -26,5 +26,10 @@
         public const string IncorrectExpression = "INCORRECT EXPRESSION!";
         public const string DividingByZero = "DIVIDING BY ZERO!";
 
+        #region Filenames
+
+        public const string SettingsIcon = "settings_icon.png";
+
+        #endregion Filenames
     }
 }

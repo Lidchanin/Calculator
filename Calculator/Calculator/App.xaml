@@ -1,20 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:themes="clr-namespace:Calculator.ThemeResources;assembly=Calculator"
              x:Class="Calculator.App">
+
     <Application.Resources>
-        <!--#region Colors-->
-        <Color x:Key="LightColor">White</Color>
-        <Color x:Key="DarkColor">Black</Color>
-        <Color x:Key="BlurColor">Gray</Color>
-        <!--#endregion Colors-->
-        
-        <!--#region NavigationPage Styles-->
-        <Style TargetType="NavigationPage">
-            <Setter Property="HasBackButton" Value="False"/>
-            <Setter Property="BarTextColor" Value="{StaticResource LightColor}"/>
-            <Setter Property="BarBackgroundColor" Value="{StaticResource BlurColor}"/>
-        </Style>
-        <!--#endregion NavigationPage Styles-->
+        <ResourceDictionary Source="ThemeResources/LightTheme.xaml">
+            <!--#region NavigationPage Styles-->
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarTextColor" Value="{DynamicResource TextAndIconsColor}"/>
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+            </Style>
+            <!--#endregion NavigationPage Styles-->
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

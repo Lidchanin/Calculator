@@ -164,4 +164,7 @@
       <Name>Calculator</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings_icon.png" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
-﻿using Calculator.Services;
-using System;
-using Xamarin.Forms;
+﻿using System;
 
 namespace Calculator.Pages
 {
@@ -8,48 +6,16 @@ namespace Calculator.Pages
     {
         public CalculatorPage()
         {
-
             InitializeComponent();
         }
 
-        private void ChangeTheme_OnClicked(object sender, EventArgs e)
+        #region private methods
+
+        private async void SettingsButton_OnClicked(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
-                {
-                    var navigationPage = (NavigationPage)Application.Current.MainPage;
-
-                    Application.Current.Resources["DarkColor"] = Color.Black;
-                    Application.Current.Resources["BlurColor"] = Color.DarkSlateGray;
-                    Application.Current.Resources["LightColor"] = Color.White;
-
-                    navigationPage.BarBackgroundColor = (Color) Application.Current.Resources["DarkColor"];
-                    navigationPage.BarTextColor = (Color) Application.Current.Resources["LightColor"];
-
-                    var statusBarStyleManager = DependencyService.Get<IStatusBarStyleManager>();
-
-                    statusBarStyleManager.SetBlackTheme();
-                }
-            );
+            await Navigation.PushAsync(new SettingsPage());
         }
 
-        private void ChangeTheme2_OnClicked(object sender, EventArgs e)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-                {
-                    var navigationPage = (NavigationPage)Application.Current.MainPage;
-
-                    Application.Current.Resources["DarkColor"] = Color.White;
-                    Application.Current.Resources["BlurColor"] = Color.DarkSlateGray;
-                    Application.Current.Resources["LightColor"] = Color.Black;
-
-                    navigationPage.BarBackgroundColor = (Color)Application.Current.Resources["DarkColor"];
-                    navigationPage.BarTextColor = (Color)Application.Current.Resources["LightColor"];
-
-                    var statusBarStyleManager = DependencyService.Get<IStatusBarStyleManager>();
-
-                    statusBarStyleManager.SetWhiteTheme();
-                }
-            );
-        }
+        #endregion private methods
     }
 }

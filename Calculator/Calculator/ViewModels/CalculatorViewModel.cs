@@ -18,30 +18,32 @@ namespace Calculator.ViewModels
 
         public CalculatorViewModel()
         {
-            ButtonPressCommand = new Command<CalculatorKey>(ButtonPress);
+            ButtonPressCommand = new Command<CalculatorKeys>(ButtonPress);
         }
 
-        private void ButtonPress(CalculatorKey parameter)
+        #region private methods
+
+        private void ButtonPress(CalculatorKeys parameter)
         {
             if (!string.IsNullOrEmpty(ExpressionString))
             {
                 switch (parameter)
                 {
-                    case CalculatorKey.Equal:
+                    case CalculatorKeys.Equal:
                         EqualClicked(parameter);
                         return;
-                    case CalculatorKey.Clear:
+                    case CalculatorKeys.Clear:
                         ClearClicked();
                         return;
-                    case CalculatorKey.ClearEntry:
+                    case CalculatorKeys.ClearEntry:
                         ClearEntryClicked();
                         return;
-                    case CalculatorKey.Point:
+                    case CalculatorKeys.Point:
                         PointClicked(parameter);
                         return;
-                    //case CalculatorKey.LeftBracket:
+                    //case CalculatorKeys.LeftBracket:
                     //    return;
-                    //case CalculatorKey.RightBracket:
+                    //case CalculatorKeys.RightBracket:
                     //    return;
                     default:
                     {
@@ -59,7 +61,7 @@ namespace Calculator.ViewModels
             ExpressionString += parameter.GetText();
         }
 
-        private void EqualClicked(CalculatorKey parameter)
+        private void EqualClicked(CalculatorKeys parameter)
         {
             try
             {
@@ -108,7 +110,7 @@ namespace Calculator.ViewModels
             ExpressionString = ExpressionString.Remove(ExpressionString.Length - 1, 1);
         }
 
-        private void OperationClicked(CalculatorKey parameter)
+        private void OperationClicked(CalculatorKeys parameter)
         {
             var lastSymbol = ExpressionString.Last().ToString();
 
@@ -122,14 +124,16 @@ namespace Calculator.ViewModels
             }
         }
 
-        private void PointClicked(CalculatorKey parameter)
+        private void PointClicked(CalculatorKeys parameter)
         {
             var lastSymbol = ExpressionString.Last().ToString();
 
-            if (lastSymbol != CalculatorKey.Point.GetText())
+            if (lastSymbol != CalculatorKeys.Point.GetText())
             {
                 ExpressionString += parameter.GetText();
             }
         }
+
+        #endregion
     }
 }

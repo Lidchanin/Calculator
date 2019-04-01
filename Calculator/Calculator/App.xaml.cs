@@ -1,4 +1,5 @@
-﻿using Calculator.Pages;
+﻿using Calculator.Helpers;
+using Calculator.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,6 +11,8 @@ namespace Calculator
         public App()
         {
             InitializeComponent();
+
+            ThemeManager.LoadTheme();
 
             MainPage = new NavigationPage(new CalculatorPage());
         }
