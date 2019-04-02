@@ -1,7 +1,7 @@
-﻿using Calculator.Models;
+﻿using Calculator.Helpers;
+using Calculator.Models;
 using System.Collections.ObjectModel;
-using Calculator.Enums;
-using Calculator.Helpers;
+using System.Linq;
 
 namespace Calculator.ViewModels
 {
@@ -29,6 +29,11 @@ namespace Calculator.ViewModels
         public void ChangeTheme(Theme theme)
         {
             ThemeManager.ChangeTheme(theme.IdAndName);
+        }
+
+        public Theme GetCurrentTheme()
+        {
+            return Themes.First(theme => theme.IdAndName == ThemeManager.CurrentTheme());
         }
     }
 }

@@ -4,13 +4,14 @@
                 xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
                 xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
                 xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
+                xmlns:controls="clr-namespace:Calculator.Controls;assembly=Calculator"
                 xmlns:viewModels="clr-namespace:Calculator.ViewModels"
                 x:Class="Calculator.Pages.ThemesPage"
                 NavigationPage.HasBackButton="True"
                 Title="Themes">
 
     <NavigationPage.TitleView>
-        <Grid ColumnSpacing="0" 
+        <Grid ColumnSpacing="0"
               RowSpacing="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -24,13 +25,13 @@
                                 HeightRequest="24"
                                 WidthRequest="24"
                                 Grid.Column="1">
-                <!--<tinted:TintedImage.GestureRecognizers>
+                <tinted:TintedImage.GestureRecognizers>
                     <TapGestureRecognizer Tapped="HistoryButton_OnTapped"
                                           NumberOfTapsRequired="1"/>
-                </tinted:TintedImage.GestureRecognizers>-->
+                </tinted:TintedImage.GestureRecognizers>
             </tinted:TintedImage>
 
-            <tinted:TintedImage x:Name="CalculatorButton" 
+            <tinted:TintedImage x:Name="CalculatorButton"
                                 Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
                                 TintColor="{DynamicResource NavBarItemsColor}"
                                 HeightRequest="24"
@@ -38,7 +39,7 @@
                                 Margin="10,0"
                                 Grid.Column="2">
                 <tinted:TintedImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CalculatorButton_OnTapped" 
+                    <TapGestureRecognizer Tapped="CalculatorButton_OnTapped"
                                           NumberOfTapsRequired="1"/>
                 </tinted:TintedImage.GestureRecognizers>
             </tinted:TintedImage>
@@ -56,19 +57,22 @@
     </pages:BasePage.Resources>
 
     <pages:BasePage.Content>
-        <ListView ItemsSource="{Binding Themes}"
-                  ItemSelected="ListView_OnItemSelected"
+        <ListView x:Name="ThemesListView" 
+                  Rotation="270"
+                  ItemsSource="{Binding Themes}"
+                  ItemSelected="ThemesListView_OnItemSelected"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Vertical">
+                        <FlexLayout Direction="Column" 
+                                    Rotation="90">
                             <Label Text="{Binding IdAndName}"/>
                             <Label Text="{Binding Description}"/>
                             <Image Source="{Binding ImagePath}"
                                    HeightRequest="100"
                                    WidthRequest="100"/>
-                        </StackLayout>
+                        </FlexLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

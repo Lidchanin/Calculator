@@ -11,7 +11,20 @@ namespace Calculator.Droid.Services
 {
     public class StatusBarStyleManager : IStatusBarStyleManager
     {
-        public void SetBlackTheme()
+        public void SetDarkTheme()
+        {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    var currentWindow = GetCurrentWindow();
+                    currentWindow.DecorView.SystemUiVisibility = (StatusBarVisibility) SystemUiFlags.LightStatusBar;
+                    currentWindow.SetStatusBarColor(ParseColor("#455A64"));
+                });
+            }
+        }
+
+        public void SetLightTheme()
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
             {
@@ -19,20 +32,7 @@ namespace Calculator.Droid.Services
                 {
                     var currentWindow = GetCurrentWindow();
                     currentWindow.DecorView.SystemUiVisibility = 0;
-                    currentWindow.SetStatusBarColor(ParseColor("#212121"));
-                });
-            }
-        }
-
-        public void SetWhiteTheme()
-        {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    var currentWindow = GetCurrentWindow();
-                    currentWindow.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
-                    currentWindow.SetStatusBarColor(ParseColor("#FFFFFF"));
+                    currentWindow.SetStatusBarColor(ParseColor("#757575"));
                 });
             }
         }

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using Calculator.Enums;
+﻿using Calculator.Enums;
+using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace Calculator.Pages
@@ -24,13 +24,13 @@ namespace Calculator.Pages
         private async void HistoryButton_OnTapped(object sender, EventArgs e)
         {
             HistoryButton.IsEnabled = false;
-            await Task.Delay(2000);
+            await Navigation.PushAsync(new HistoryPage());
             HistoryButton.IsEnabled = true;
         }
 
         private void ClearButton_OnPressed(object sender, EventArgs e)
         {
-            Device.StartTimer(TimeSpan.FromSeconds(3), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(2), () =>
             {
                 ViewModel.ButtonPressCommand.Execute(CalculatorKeys.Clear);
                 return false;

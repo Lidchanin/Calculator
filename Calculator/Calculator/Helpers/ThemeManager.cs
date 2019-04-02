@@ -23,15 +23,15 @@ namespace Calculator.Helpers
             {
                 case Themes.Light:
                     mergedDictionaries.Add(new LightTheme());
-                    statusBarStyleManager.SetWhiteTheme();
+                    statusBarStyleManager.SetLightTheme();
                     break;
                 case Themes.Dark:
                     mergedDictionaries.Add(new DarkTheme());
-                    statusBarStyleManager.SetBlackTheme();
+                    statusBarStyleManager.SetDarkTheme();
                     break;
                 default:
                     mergedDictionaries.Add(new LightTheme());
-                    statusBarStyleManager.SetWhiteTheme();
+                    statusBarStyleManager.SetLightTheme();
                     break;
             }
         }
@@ -41,13 +41,9 @@ namespace Calculator.Helpers
             ChangeTheme(CurrentTheme());
         }
 
-        #region private methods
-
-        private static Themes CurrentTheme()
+        public static Themes CurrentTheme()
         {
-            return (Themes)Preferences.Get(SelectedThemeKey, (int)Themes.Light);
+            return (Themes) Preferences.Get(SelectedThemeKey, (int) Themes.Light);
         }
-
-        #endregion private methods
     }
 }

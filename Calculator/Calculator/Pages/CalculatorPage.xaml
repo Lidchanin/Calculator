@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:controls="clr-namespace:Calculator.Controls;assembly=Calculator"
                 xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
                 xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
                 xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
                 xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
                 xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
                 x:Class="Calculator.Pages.CalculatorPage"
-                NavigationPage.HasBackButton="True"
                 Title="Calculator">
 
     <NavigationPage.TitleView>
@@ -52,11 +52,14 @@
 
     <pages:BasePage.Resources>
         <ResourceDictionary>
-            <Style x:Key="BaseLabelStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Large"/>
+            <Style x:Key="BaseEntryStyle" TargetType="controls:BorderlessEntry">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
+                <Setter Property="IsTextPredictionEnabled" Value="False"/>
+                <Setter Property="IsSpellCheckEnabled" Value="False"/>
+                <Setter Property="IsReadOnly" Value="True"/>
                 <Setter Property="HorizontalTextAlignment" Value="End"/>
-                <Setter Property="VerticalTextAlignment" Value="Center"/>
-                <Setter Property="LineBreakMode" Value="NoWrap"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
 
             <Style x:Key="BaseButtonStyle" TargetType="Button">
@@ -95,34 +98,17 @@
             </Grid.RowDefinitions>
 
             <!--#region Expression and Result section-->
-            <ScrollView Orientation="Horizontal" 
-                        Padding="10,0"
-                        HorizontalScrollBarVisibility="Never"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Grid.Row="0">
-                <FlexLayout Direction="Row"
-                            AlignItems="Center"
-                            JustifyContent="End">
-                    <Label Text="{Binding ExpressionString}"
-                           Style="{StaticResource BaseLabelStyle}"
-                           TextColor="{DynamicResource PrimaryTextColor}"/>
-                </FlexLayout>
-            </ScrollView>
+            <controls:BorderlessEntry Text="{Binding ExpressionString}"
+                                      Style="{StaticResource BaseEntryStyle}"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"
+                                      Grid.Row="0"/>
 
-            <ScrollView Orientation="Horizontal"
-                        Padding="10,0"
-                        HorizontalScrollBarVisibility="Never"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Grid.Row="1">
-                <StackLayout HorizontalOptions="EndAndExpand"
-                             VerticalOptions="CenterAndExpand">
-                    <Label Text="{Binding ResultString}"
-                           Style="{StaticResource BaseLabelStyle}"
-                           TextColor="{DynamicResource PrimaryTextColor}"/>
-                </StackLayout>
-            </ScrollView>
+            <controls:BorderlessEntry Text="{Binding ResultString}"
+                                      Style="{StaticResource BaseEntryStyle}"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"
+                                      Grid.Row="1"/>
             <!--#endregion Expression and Result section-->
 
             <!--#region Numbers section-->

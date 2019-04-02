@@ -1,5 +1,5 @@
-﻿using System;
-using Calculator.Models;
+﻿using Calculator.Models;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,9 +13,18 @@ namespace Calculator.Pages
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var currentTheme = ViewModel.GetCurrentTheme();
+            ThemesListView.SelectedItem = currentTheme;
+            ThemesListView.ScrollTo(currentTheme, ScrollToPosition.MakeVisible, true);
+        }
+
         #region private methods
 
-        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ThemesListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ViewModel.ChangeTheme((Theme) e.SelectedItem);
         }
@@ -23,8 +32,15 @@ namespace Calculator.Pages
         private async void CalculatorButton_OnTapped(object sender, EventArgs e)
         {
             CalculatorButton.IsEnabled = false;
-            await Navigation.PushAsync(new CalculatorPage());
+            await Navigation.PopToRootAsync(true);
             CalculatorButton.IsEnabled = true;
+        }
+
+        private async void HistoryButton_OnTapped(object sender, EventArgs e)
+        {
+            HistoryButton.IsEnabled = false;
+            await Navigation.PushAsync(new HistoryPage());
+            HistoryButton.IsEnabled = true;
         }
 
         #endregion private methods

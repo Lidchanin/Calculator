@@ -1,0 +1,58 @@
+﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:controls="clr-namespace:Calculator.Controls;assembly=Calculator"
+                xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
+                xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
+                xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
+                xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
+                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
+                x:Class="Calculator.Pages.HistoryPage"
+                Title="History">
+
+    <NavigationPage.TitleView>
+        <Grid ColumnSpacing="0" 
+              RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <tinted:TintedImage x:Name="ThemesButton"
+                                Source="{x:Static helpers:ConstantHelper.PaletteIcon}"
+                                TintColor="{DynamicResource NavBarItemsColor}"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                Grid.Column="1">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ThemesButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+
+            <tinted:TintedImage x:Name="CalculatorButton" 
+                                Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
+                                TintColor="{DynamicResource NavBarItemsColor}"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                Margin="10,0"
+                                Grid.Column="2">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CalculatorButton_OnTapped" 
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <pages:BasePage.BindingContext>
+        <viewModels:CalculatorViewModel x:Name="ViewModel"/>
+    </pages:BasePage.BindingContext>
+
+    <pages:BasePage.Content>
+        <FlexLayout AlignItems="Center"
+                    JustifyContent="Center">
+            <Label Text="History PAGE"/>
+        </FlexLayout>
+    </pages:BasePage.Content>
+</pages:BasePage>

@@ -8,20 +8,20 @@ namespace Calculator.iOS.Services
 {
     public class StatusBarStyleManager : IStatusBarStyleManager
     {
-        public void SetBlackTheme()
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
-                GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
-            });
-        }
-
-        public void SetWhiteTheme()
+        public void SetDarkTheme()
         {
             Device.BeginInvokeOnMainThread(() =>
             {
                 UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default, false);
+                GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+            });
+        }
+
+        public void SetLightTheme()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
                 GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
             });
         }

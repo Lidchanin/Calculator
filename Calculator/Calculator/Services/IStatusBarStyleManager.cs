@@ -2,8 +2,8 @@
 {
     public interface IStatusBarStyleManager
     {
-        void SetWhiteTheme();
+        void SetLightTheme();
 
-        void SetBlackTheme();
+        void SetDarkTheme();
     }
 }
