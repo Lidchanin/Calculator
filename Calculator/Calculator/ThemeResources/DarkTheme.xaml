@@ -4,13 +4,15 @@
                     x:Class="Calculator.ThemeResources.DarkTheme">
 
     <!--#region Colors-->
-    <Color x:Key="DarkPrimaryColor">#455A64</Color>
-    <Color x:Key="LightPrimaryColor">#CFD8DC</Color>
-    <Color x:Key="PrimaryColor">#607D8B</Color>
-    <Color x:Key="TextAndIconsColor">#FFFFFF</Color>
-    <Color x:Key="AccentColor">#9E9E9E</Color>
-    <Color x:Key="PrimaryTextColor">#212121</Color>
-    <Color x:Key="SecondaryTextColor">#757575</Color>
-    <Color x:Key="DividerColor">#BDBDBD</Color>
+    <Color x:Key="NavBarItemsColor">#212121</Color>
+    <Color x:Key="NavBarBackgroundColor">#455A64</Color>
+
+    <Color x:Key="PrimaryTextColor">#FFFFFF</Color>
+    <Color x:Key="SecondaryTextColor">#BDBDBD</Color>
+    <Color x:Key="TertiaryTextColor">#FFFFFF</Color>
+
+    <Color x:Key="PrimaryBackgroundColor">#757575</Color>
+    <Color x:Key="SecondaryBackgroundColor">#455A64</Color>
+    <Color x:Key="TertiaryBackgroundColor">#212121</Color>
     <!--#endregion Colors-->
 </ResourceDictionary>

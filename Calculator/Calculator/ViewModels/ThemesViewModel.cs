@@ -1,0 +1,34 @@
+﻿using Calculator.Models;
+using System.Collections.ObjectModel;
+using Calculator.Enums;
+using Calculator.Helpers;
+
+namespace Calculator.ViewModels
+{
+    public class ThemesViewModel : BaseViewModel
+    {
+        public ObservableCollection<Theme> Themes { get; set; } = new ObservableCollection<Theme>();
+
+        public ThemesViewModel()
+        {
+            Themes.Add(new Theme
+            {
+                IdAndName = Enums.Themes.Light,
+                Description = "Some desc 1",
+                ImagePath = "https://distributor.golding.eu/desk-calculator-white--4050-02--hd.jpg"
+            });
+
+            Themes.Add(new Theme
+            {
+                IdAndName = Enums.Themes.Dark,
+                Description = "Some desc 2",
+                ImagePath = "https://images-na.ssl-images-amazon.com/images/I/61TWIQWJS1L._SY741_.jpg"
+            });
+        }
+
+        public void ChangeTheme(Theme theme)
+        {
+            ThemeManager.ChangeTheme(theme.IdAndName);
+        }
+    }
+}

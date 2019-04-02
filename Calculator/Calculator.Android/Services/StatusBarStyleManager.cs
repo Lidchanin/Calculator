@@ -4,6 +4,7 @@ using Android.Views;
 using Calculator.Droid.Services;
 using Calculator.Services;
 using Xamarin.Forms;
+using static Android.Graphics.Color;
 
 [assembly: Dependency(typeof(StatusBarStyleManager))]
 namespace Calculator.Droid.Services
@@ -18,7 +19,7 @@ namespace Calculator.Droid.Services
                 {
                     var currentWindow = GetCurrentWindow();
                     currentWindow.DecorView.SystemUiVisibility = 0;
-                    currentWindow.SetStatusBarColor(Android.Graphics.Color.Black);
+                    currentWindow.SetStatusBarColor(ParseColor("#212121"));
                 });
             }
         }
@@ -31,7 +32,7 @@ namespace Calculator.Droid.Services
                 {
                     var currentWindow = GetCurrentWindow();
                     currentWindow.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
-                    currentWindow.SetStatusBarColor(Android.Graphics.Color.White);
+                    currentWindow.SetStatusBarColor(ParseColor("#FFFFFF"));
                 });
             }
         }
@@ -43,10 +44,7 @@ namespace Calculator.Droid.Services
             var activity = (Activity) context;
             var window = activity.Window;
 
-            // clear FLAG_TRANSLUCENT_STATUS flag:
             window.ClearFlags(WindowManagerFlags.TranslucentStatus);
-
-            // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
             window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             return window;

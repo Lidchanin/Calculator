@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
-             xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
-             xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
-             x:Class="Calculator.Pages.CalculatorPage"
-             Title="Calculator">
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
+                xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
+                xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
+                xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
+                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
+                x:Class="Calculator.Pages.CalculatorPage"
+                NavigationPage.HasBackButton="True"
+                Title="Calculator">
 
     <NavigationPage.TitleView>
         <Grid ColumnSpacing="0" 
@@ -13,25 +16,43 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ImageButton Source="{x:Static helpers:ConstantHelper.SettingsIcon}"
-                         Clicked="SettingsButton_OnClicked"
-                         HeightRequest="24"
-                         WidthRequest="24"
-                         Margin="5,0"
-                         Grid.Column="1"/>
+            <tinted:TintedImage x:Name="HistoryButton"
+                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
+                                TintColor="{DynamicResource NavBarItemsColor}"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                Grid.Column="1">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="HistoryButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+
+            <tinted:TintedImage x:Name="ThemesButton" 
+                                Source="{x:Static helpers:ConstantHelper.PaletteIcon}"
+                                TintColor="{DynamicResource NavBarItemsColor}"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                Margin="10,0"
+                                Grid.Column="2">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ThemesButton_OnTapped" 
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
         </Grid>
     </NavigationPage.TitleView>
 
-    <ContentPage.BindingContext>
-        <viewModels:CalculatorViewModel/>
-    </ContentPage.BindingContext>
+    <pages:BasePage.BindingContext>
+        <viewModels:CalculatorViewModel x:Name="ViewModel"/>
+    </pages:BasePage.BindingContext>
 
-    <ContentPage.Resources>
+    <pages:BasePage.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
                 <Setter Property="FontSize" Value="Large"/>
                 <Setter Property="HorizontalTextAlignment" Value="End"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
@@ -41,7 +62,7 @@
             <Style x:Key="BaseButtonStyle" TargetType="Button">
                 <Setter Property="FontSize" Value="Large"/>
                 <Setter Property="BackgroundColor" Value="Transparent"/>
-                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
                 <Setter Property="Command" Value="{Binding ButtonPressCommand}"/>
             </Style>
 
@@ -58,11 +79,11 @@
                 <Setter Property="RowSpacing" Value="0"/>
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </pages:BasePage.Resources>
 
-    <ContentPage.Content>
+    <pages:BasePage.Content>
         <Grid Style="{StaticResource BaseGridStyle}"
-              BackgroundColor="{DynamicResource LightPrimaryColor}">
+              BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
@@ -80,11 +101,13 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Grid.Row="0">
-                <StackLayout HorizontalOptions="EndAndExpand"
-                             VerticalOptions="CenterAndExpand">
+                <FlexLayout Direction="Row"
+                            AlignItems="Center"
+                            JustifyContent="End">
                     <Label Text="{Binding ExpressionString}"
-                           Style="{StaticResource BaseLabelStyle}"/>
-                </StackLayout>
+                           Style="{StaticResource BaseLabelStyle}"
+                           TextColor="{DynamicResource PrimaryTextColor}"/>
+                </FlexLayout>
             </ScrollView>
 
             <ScrollView Orientation="Horizontal"
@@ -96,14 +119,15 @@
                 <StackLayout HorizontalOptions="EndAndExpand"
                              VerticalOptions="CenterAndExpand">
                     <Label Text="{Binding ResultString}"
-                           Style="{StaticResource BaseLabelStyle}"/>
+                           Style="{StaticResource BaseLabelStyle}"
+                           TextColor="{DynamicResource PrimaryTextColor}"/>
                 </StackLayout>
             </ScrollView>
             <!--#endregion Expression and Result section-->
 
             <!--#region Numbers section-->
             <Grid Style="{StaticResource BaseGridStyle}" 
-                  BackgroundColor="{DynamicResource DarkPrimaryColor}"
+                  BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                   Grid.Column="0"
                   Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -183,7 +207,7 @@
 
             <!--#region Operations section-->
             <Grid Style="{StaticResource BaseGridStyle}" 
-                  BackgroundColor="{DynamicResource DarkPrimaryColor}"
+                  BackgroundColor="{DynamicResource TertiaryBackgroundColor}"
                   Grid.Column="1"
                   Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -200,6 +224,7 @@
                 <Button Text="{x:Static helpers:ConstantHelper.ClearButtonText}"
                         Style="{StaticResource OperationsSectionButtonStyle}"
                         CommandParameter="{x:Static enums:CalculatorKeys.ClearEntry}"
+                        Pressed="ClearButton_OnPressed"
                         Grid.Row="0"/>
                 <Button Text="{x:Static helpers:ConstantHelper.DivideButtonText}"
                         Style="{StaticResource OperationsSectionButtonStyle}"
@@ -220,5 +245,5 @@
             </Grid>
             <!--#endregion Operations section-->
         </Grid>
-    </ContentPage.Content>
-</ContentPage>
+    </pages:BasePage.Content>
+</pages:BasePage>
