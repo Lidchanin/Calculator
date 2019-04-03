@@ -57,25 +57,25 @@
     </pages:BasePage.Resources>
 
     <pages:BasePage.Content>
-        <ListView x:Name="ThemesListView" 
-                  Rotation="270"
-                  ItemsSource="{Binding Themes}"
-                  ItemSelected="ThemesListView_OnItemSelected"
-                  HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <FlexLayout Direction="Column" 
-                                    Rotation="90">
-                            <Label Text="{Binding IdAndName}"/>
-                            <Label Text="{Binding Description}"/>
-                            <Image Source="{Binding ImagePath}"
-                                   HeightRequest="100"
-                                   WidthRequest="100"/>
-                        </FlexLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="ThemesListView" 
+                      ItemsSource="{Binding Themes}"
+                      ItemSelected="ThemesListView_OnItemSelected"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <FlexLayout Direction="Column">
+                                <Label Text="{Binding IdAndName}"/>
+                                <Label Text="{Binding Description}"/>
+                                <Image Source="{Binding ImagePath}"
+                                       HeightRequest="100"
+                                       WidthRequest="100"/>
+                            </FlexLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </pages:BasePage.Content>
 </pages:BasePage>

@@ -31,7 +31,7 @@ namespace Calculator.Pages
         {
             var clearButton = (Button) sender;
 
-            Device.StartTimer(TimeSpan.FromSeconds(2), () =>
+            Device.StartTimer(TimeSpan.FromMilliseconds(1500), () =>
             {
                 if (clearButton.IsPressed)
                 {

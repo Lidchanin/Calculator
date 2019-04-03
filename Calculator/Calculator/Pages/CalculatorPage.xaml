@@ -17,6 +17,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <tinted:TintedImage x:Name="HistoryButton"
@@ -63,18 +64,21 @@
             </Style>
 
             <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="50"/>
+                <Setter Property="Margin" Value="5"/>
                 <Setter Property="FontSize" Value="Large"/>
-                <Setter Property="BackgroundColor" Value="Transparent"/>
                 <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
                 <Setter Property="Command" Value="{Binding ButtonPressCommand}"/>
             </Style>
 
             <Style x:Key="NumbersSectionButtonStyle" TargetType="Button"
                    BasedOn="{StaticResource BaseButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference NumbersSectionGrid}, Path=BackgroundColor}"/>
             </Style>
 
             <Style x:Key="OperationsSectionButtonStyle" TargetType="Button"
                    BasedOn="{StaticResource BaseButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference OperationsSectionGrid}, Path=BackgroundColor}"/>
             </Style>
 
             <Style x:Key="BaseGridStyle" TargetType="Grid">
@@ -112,7 +116,8 @@
             <!--#endregion Expression and Result section-->
 
             <!--#region Numbers section-->
-            <Grid Style="{StaticResource BaseGridStyle}" 
+            <Grid x:Name="NumbersSectionGrid" 
+                  Style="{StaticResource BaseGridStyle}" 
                   BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                   Grid.Column="0"
                   Grid.Row="2">
@@ -131,7 +136,6 @@
                 <Button Text="{x:Static helpers:ConstantHelper.SevenButtonText}"
                         Style="{StaticResource NumbersSectionButtonStyle}"
                         CommandParameter="{x:Static enums:CalculatorKeys.Seven}"
-                        Grid.Column="0"
                         Grid.Row="0"/>
                 <Button Text="{x:Static helpers:ConstantHelper.FourButtonText}"
                         Style="{StaticResource NumbersSectionButtonStyle}"
@@ -192,7 +196,8 @@
             <!--#endregion Numbers section-->
 
             <!--#region Operations section-->
-            <Grid Style="{StaticResource BaseGridStyle}" 
+            <Grid x:Name="OperationsSectionGrid" 
+                  Style="{StaticResource BaseGridStyle}" 
                   BackgroundColor="{DynamicResource TertiaryBackgroundColor}"
                   Grid.Column="1"
                   Grid.Row="2">
