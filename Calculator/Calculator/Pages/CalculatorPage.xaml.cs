@@ -1,6 +1,5 @@
 ﻿using Calculator.Enums;
 using System;
-using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace Calculator.Pages
@@ -30,9 +29,15 @@ namespace Calculator.Pages
 
         private void ClearButton_OnPressed(object sender, EventArgs e)
         {
+            var clearButton = (Button) sender;
+
             Device.StartTimer(TimeSpan.FromSeconds(2), () =>
             {
-                ViewModel.ButtonPressCommand.Execute(CalculatorKeys.Clear);
+                if (clearButton.IsPressed)
+                {
+                    ViewModel.ButtonPressCommand.Execute(CalculatorKeys.Clear);
+                }
+
                 return false;
             });
         }
