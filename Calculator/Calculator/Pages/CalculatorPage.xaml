@@ -5,56 +5,19 @@
                 xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
                 xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
                 xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
-                xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
                 xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
-                x:Class="Calculator.Pages.CalculatorPage"
-                Title="Calculator">
-
-    <NavigationPage.TitleView>
-        <Grid ColumnSpacing="0" 
-              RowSpacing="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <tinted:TintedImage x:Name="HistoryButton"
-                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
-                                TintColor="{DynamicResource NavBarItemsColor}"
-                                HeightRequest="24"
-                                WidthRequest="24"
-                                Grid.Column="1">
-                <tinted:TintedImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="HistoryButton_OnTapped"
-                                          NumberOfTapsRequired="1"/>
-                </tinted:TintedImage.GestureRecognizers>
-            </tinted:TintedImage>
-
-            <tinted:TintedImage x:Name="ThemesButton" 
-                                Source="{x:Static helpers:ConstantHelper.PaletteIcon}"
-                                TintColor="{DynamicResource NavBarItemsColor}"
-                                HeightRequest="24"
-                                WidthRequest="24"
-                                Margin="10,0"
-                                Grid.Column="2">
-                <tinted:TintedImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="ThemesButton_OnTapped" 
-                                          NumberOfTapsRequired="1"/>
-                </tinted:TintedImage.GestureRecognizers>
-            </tinted:TintedImage>
-        </Grid>
-    </NavigationPage.TitleView>
-
-    <pages:BasePage.BindingContext>
-        <viewModels:CalculatorViewModel x:Name="ViewModel"/>
-    </pages:BasePage.BindingContext>
+                x:Class="Calculator.Pages.CalculatorPage">
 
     <pages:BasePage.Resources>
         <ResourceDictionary>
+            <Style TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="RowSpacing" Value="0"/>
+            </Style>
+
             <Style x:Key="BaseEntryStyle" TargetType="controls:BorderlessEntry">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
+                <Setter Property="FontSize" Value="Large"/>
                 <Setter Property="IsTextPredictionEnabled" Value="False"/>
                 <Setter Property="IsSpellCheckEnabled" Value="False"/>
                 <Setter Property="IsReadOnly" Value="True"/>
@@ -64,7 +27,6 @@
             </Style>
 
             <Style x:Key="BaseButtonStyle" TargetType="Button">
-                <Setter Property="CornerRadius" Value="50"/>
                 <Setter Property="Margin" Value="5"/>
                 <Setter Property="FontSize" Value="Large"/>
                 <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
@@ -80,17 +42,45 @@
                    BasedOn="{StaticResource BaseButtonStyle}">
                 <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference OperationsSectionGrid}, Path=BackgroundColor}"/>
             </Style>
-
-            <Style x:Key="BaseGridStyle" TargetType="Grid">
-                <Setter Property="ColumnSpacing" Value="0"/>
-                <Setter Property="RowSpacing" Value="0"/>
-            </Style>
         </ResourceDictionary>
     </pages:BasePage.Resources>
 
+    <NavigationPage.TitleView>
+        <Grid Style="{StaticResource NavBarLayoutStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{x:Static helpers:ConstantHelper.Calculator}"
+                   Style="{StaticResource NavBarLabelStyle}"
+                   Grid.Column="0"/>
+
+            <tinted:TintedImage x:Name="HistoryButton"
+                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="1">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="HistoryButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+
+            <tinted:TintedImage x:Name="ThemesButton" 
+                                Source="{x:Static helpers:ConstantHelper.PaletteIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="2">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ThemesButton_OnTapped" 
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+        </Grid>
+    </NavigationPage.TitleView>
+
     <pages:BasePage.Content>
-        <Grid Style="{StaticResource BaseGridStyle}"
-              BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
+        <Grid BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
@@ -117,7 +107,6 @@
 
             <!--#region Numbers section-->
             <Grid x:Name="NumbersSectionGrid" 
-                  Style="{StaticResource BaseGridStyle}" 
                   BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                   Grid.Column="0"
                   Grid.Row="2">
@@ -197,7 +186,6 @@
 
             <!--#region Operations section-->
             <Grid x:Name="OperationsSectionGrid" 
-                  Style="{StaticResource BaseGridStyle}" 
                   BackgroundColor="{DynamicResource TertiaryBackgroundColor}"
                   Grid.Column="1"
                   Grid.Row="2">

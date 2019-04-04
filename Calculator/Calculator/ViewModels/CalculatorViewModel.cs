@@ -1,5 +1,6 @@
 ﻿using Calculator.Enums;
 using Calculator.Helpers;
+using Calculator.Models;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -19,6 +20,14 @@ namespace Calculator.ViewModels
         public CalculatorViewModel()
         {
             ButtonPressCommand = new Command<CalculatorKeys>(ButtonPress);
+        }
+
+        public CalculatorViewModel(string expression, string result)
+        {
+            ButtonPressCommand = new Command<CalculatorKeys>(ButtonPress);
+
+            ExpressionString = expression;
+            ResultString = result;
         }
 
         #region private methods
@@ -61,12 +70,13 @@ namespace Calculator.ViewModels
             ExpressionString += parameter.GetText();
         }
 
-        private void EqualClicked(CalculatorKeys parameter)
+        private async void EqualClicked(CalculatorKeys parameter)
         {
             try
             {
                 var dt = new DataTable();
                 var temp = dt.Compute(ExpressionString, string.Empty).ToString();
+
                 if (temp == ConstantHelper.PositiveInfinity || temp == ConstantHelper.NegativeInfinity)
                 {
                     ResultString = ConstantHelper.DividingByZero;
@@ -74,6 +84,13 @@ namespace Calculator.ViewModels
                 else
                 {
                     ResultString = temp;
+
+                    await App.Database.Insert(new CalculatorItem
+                    {
+                        Expression = ExpressionString,
+                        Result = ResultString,
+                        CalculationTime = DateTime.Now.ToLocalTime()
+                    });
                 }
             }
             catch (InvalidCastException)

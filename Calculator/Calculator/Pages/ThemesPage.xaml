@@ -1,50 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
-                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
                 xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
-                xmlns:controls="clr-namespace:Calculator.Controls;assembly=Calculator"
+                xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
                 xmlns:viewModels="clr-namespace:Calculator.ViewModels"
-                x:Class="Calculator.Pages.ThemesPage"
-                NavigationPage.HasBackButton="True"
-                Title="Themes">
-
-    <NavigationPage.TitleView>
-        <Grid ColumnSpacing="0"
-              RowSpacing="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <tinted:TintedImage x:Name="HistoryButton"
-                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
-                                TintColor="{DynamicResource NavBarItemsColor}"
-                                HeightRequest="24"
-                                WidthRequest="24"
-                                Grid.Column="1">
-                <tinted:TintedImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="HistoryButton_OnTapped"
-                                          NumberOfTapsRequired="1"/>
-                </tinted:TintedImage.GestureRecognizers>
-            </tinted:TintedImage>
-
-            <tinted:TintedImage x:Name="CalculatorButton"
-                                Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
-                                TintColor="{DynamicResource NavBarItemsColor}"
-                                HeightRequest="24"
-                                WidthRequest="24"
-                                Margin="10,0"
-                                Grid.Column="2">
-                <tinted:TintedImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CalculatorButton_OnTapped"
-                                          NumberOfTapsRequired="1"/>
-                </tinted:TintedImage.GestureRecognizers>
-            </tinted:TintedImage>
-        </Grid>
-    </NavigationPage.TitleView>
+                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
+                x:Class="Calculator.Pages.ThemesPage">
 
     <pages:BasePage.BindingContext>
         <viewModels:ThemesViewModel x:Name="ViewModel"/>
@@ -55,6 +16,40 @@
 
         </ResourceDictionary>
     </pages:BasePage.Resources>
+
+    <NavigationPage.TitleView>
+        <Grid Style="{StaticResource NavBarLayoutStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{x:Static helpers:ConstantHelper.Themes}"
+                   Style="{StaticResource NavBarLabelStyle}"
+                   Grid.Column="0"/>
+
+            <tinted:TintedImage x:Name="HistoryButton"
+                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="1">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="HistoryButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+
+            <tinted:TintedImage x:Name="CalculatorButton"
+                                Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="2">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CalculatorButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+        </Grid>
+    </NavigationPage.TitleView>
 
     <pages:BasePage.Content>
         <StackLayout Orientation="Vertical">

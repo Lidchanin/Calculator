@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using Lottie.Forms.iOS.Renderers;
 using Plugin.CrossPlatformTintedImage.iOS;
 using UIKit;
 
@@ -20,6 +21,7 @@ namespace Calculator.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Xamarin.Forms.Forms.Init();
+            AnimationViewRenderer.Init();
             TintedImageRenderer.Init();
             LoadApplication(new App());
 

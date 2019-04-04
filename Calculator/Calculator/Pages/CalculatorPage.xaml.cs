@@ -1,4 +1,5 @@
 ﻿using Calculator.Enums;
+using Calculator.ViewModels;
 using System;
 using Xamarin.Forms;
 
@@ -6,8 +7,23 @@ namespace Calculator.Pages
 {
     public partial class CalculatorPage
     {
+        private readonly CalculatorViewModel _viewModel;
+
         public CalculatorPage()
         {
+            _viewModel = new CalculatorViewModel();
+
+            BindingContext = _viewModel;
+
+            InitializeComponent();
+        }
+
+        public CalculatorPage(string expression, string result)
+        {
+            _viewModel = new CalculatorViewModel(expression, result);
+
+            BindingContext = _viewModel;
+
             InitializeComponent();
         }
 
@@ -35,7 +51,7 @@ namespace Calculator.Pages
             {
                 if (clearButton.IsPressed)
                 {
-                    ViewModel.ButtonPressCommand.Execute(CalculatorKeys.Clear);
+                    _viewModel.ButtonPressCommand.Execute(CalculatorKeys.Clear);
                 }
 
                 return false;

@@ -23,14 +23,26 @@
         public const string PositiveInfinity = "Infinity";
         public const string NegativeInfinity = "-Infinity";
 
+        public const string History = "History";
+        public const string Themes = "Themes";
+        public const string Calculator = "Calculator";
+
         public const string IncorrectExpression = "INCORRECT EXPRESSION!";
         public const string DividingByZero = "DIVIDING BY ZERO!";
+
+        public const string NoItemsFound = "No items found";
+        public const string ClearHistory = "Clear history";
+        public const string GoToRecent = "Go to recent";
+
+        public const string HistoryItemDateFormat = "{0:d MMMM yyyy}";
 
         #region Filenames
 
         public const string PaletteIcon = "palette_icon.png";
         public const string HistoryIcon = "history_icon.png";
         public const string CalculatorIcon = "calculator_icon.png";
+
+        public const string NotFoundLottie = "not_found_lottie.json";
 
         #endregion Filenames
     }
