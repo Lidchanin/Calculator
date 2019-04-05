@@ -14,14 +14,14 @@ namespace Calculator.ViewModels
             Themes.Add(new Theme
             {
                 IdAndName = Enums.Themes.Light,
-                Description = "Some desc 1",
+                Description = "Some desc 1asdasdlj1asdasdlj1asdasdlj1asdasdlj1asdasdlj1asdasdlj1asdasdljфыввффывффыфвфывфццвфцвыф",
                 ImagePath = "https://distributor.golding.eu/desk-calculator-white--4050-02--hd.jpg"
             });
 
             Themes.Add(new Theme
             {
                 IdAndName = Enums.Themes.Dark,
-                Description = "Some desc 2",
+                Description = "Some desc 1222222222222222222222 222222222222222222222222222222222222222 222222222222222222222222222222222222",
                 ImagePath = "https://images-na.ssl-images-amazon.com/images/I/61TWIQWJS1L._SY741_.jpg"
             });
         }

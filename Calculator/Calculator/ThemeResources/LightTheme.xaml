@@ -8,8 +8,8 @@
     <Color x:Key="NavBarBackgroundColor">#757575</Color>
 
     <Color x:Key="PrimaryTextColor">#212121</Color>
-    <Color x:Key="SecondaryTextColor">#FFFFFF</Color>
-    <Color x:Key="TertiaryTextColor">#757575</Color>
+    <Color x:Key="SecondaryTextColor">#BDBDBD</Color>
+    <Color x:Key="TertiaryTextColor">#D3D3D3</Color>
 
     <Color x:Key="PrimaryBackgroundColor">#FFFFFF</Color>
     <Color x:Key="SecondaryBackgroundColor">#757575</Color>

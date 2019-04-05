@@ -18,8 +18,9 @@ namespace Calculator.Pages
             base.OnAppearing();
 
             var currentTheme = ViewModel.GetCurrentTheme();
-            ThemesListView.SelectedItem = currentTheme;
-            ThemesListView.ScrollTo(currentTheme, ScrollToPosition.MakeVisible, true);
+            ThemesView.SelectedItem = currentTheme;
+            //ThemesListView.SelectedItem = currentTheme;
+            //ThemesListView.ScrollTo(currentTheme, ScrollToPosition.MakeVisible, true);
         }
 
         #region private methods
@@ -41,6 +42,12 @@ namespace Calculator.Pages
             HistoryButton.IsEnabled = false;
             await Navigation.PushAsync(new HistoryPage());
             HistoryButton.IsEnabled = true;
+        }
+
+        private void ThemeCard_OnTapped(object sender, EventArgs e)
+        {
+            var currentTheme = (Theme)((ContentView)sender).BindingContext;
+            ViewModel.ChangeTheme(currentTheme);
         }
 
         #endregion private methods

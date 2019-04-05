@@ -5,7 +5,9 @@
                 xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
                 xmlns:viewModels="clr-namespace:Calculator.ViewModels"
                 xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
-                x:Class="Calculator.Pages.ThemesPage">
+                xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+                x:Class="Calculator.Pages.ThemesPage"
+                x:Name="Page">
 
     <pages:BasePage.BindingContext>
         <viewModels:ThemesViewModel x:Name="ViewModel"/>
@@ -13,7 +15,10 @@
 
     <pages:BasePage.Resources>
         <ResourceDictionary>
-
+            <Style TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="RowSpacing" Value="0"/>
+            </Style>
         </ResourceDictionary>
     </pages:BasePage.Resources>
 
@@ -52,25 +57,67 @@
     </NavigationPage.TitleView>
 
     <pages:BasePage.Content>
-        <StackLayout Orientation="Vertical">
-            <ListView x:Name="ThemesListView" 
-                      ItemsSource="{Binding Themes}"
-                      ItemSelected="ThemesListView_OnItemSelected"
-                      HasUnevenRows="True">
-                <ListView.ItemTemplate>
+        <Grid BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="Choose app theme:"
+                   TextColor="{DynamicResource TertiaryTextColor}"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Grid.Row="0"/>
+
+            <cards:CoverFlowView x:Name="ThemesView" 
+                                 ItemsSource="{Binding Themes}"
+                                 PositionShiftValue="60"
+                                 Margin="0,20"
+                                 Grid.Row="1">
+                <cards:CoverFlowView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <FlexLayout Direction="Column">
-                                <Label Text="{Binding IdAndName}"/>
-                                <Label Text="{Binding Description}"/>
+                        <ContentView Padding="40,10"
+                                     HorizontalOptions="CenterAndExpand"
+                                     VerticalOptions="CenterAndExpand">
+                            <Frame CornerRadius="15"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand"
+                                   IsClippedToBounds="True"
+                                   BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
+                                <ContentView.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ThemeCard_OnTapped"
+                                                      NumberOfTapsRequired="1"/>
+                            </ContentView.GestureRecognizers>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="3*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{Binding IdAndName}"
+                                       TextColor="{DynamicResource PrimaryTextColor}"
+                                       FontSize="Medium"
+                                       Grid.Row="0"/>
+                                <Label Text="{Binding Description}"
+                                       TextColor="{DynamicResource SecondaryTextColor}"
+                                       Grid.Row="1"/>
                                 <Image Source="{Binding ImagePath}"
-                                       HeightRequest="100"
-                                       WidthRequest="100"/>
-                            </FlexLayout>
-                        </ViewCell>
+                                       Grid.Row="2"/>
+                            </Grid>
+                        </Frame>
+                        </ContentView>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                </cards:CoverFlowView.ItemTemplate>
+            </cards:CoverFlowView>
+        </Grid>
     </pages:BasePage.Content>
 </pages:BasePage>
