@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
                 xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
                 xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
                 xmlns:viewModels="clr-namespace:Calculator.ViewModels"
-                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
                 xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
-                x:Class="Calculator.Pages.ThemesPage"
-                x:Name="Page">
+                xmlns:cardControls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
+                x:Class="Calculator.Pages.ThemesPage">
 
     <pages:BasePage.BindingContext>
         <viewModels:ThemesViewModel x:Name="ViewModel"/>
@@ -63,10 +64,10 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
 
-            <Label Text="Choose app theme:"
+            <Label Text="{x:Static helpers:ConstantHelper.SelectAppTheme}"
                    TextColor="{DynamicResource TertiaryTextColor}"
                    FontSize="Large"
                    HorizontalOptions="Center"
@@ -80,40 +81,41 @@
                                  Grid.Row="1">
                 <cards:CoverFlowView.ItemTemplate>
                     <DataTemplate>
-                        <ContentView Padding="40,10"
-                                     HorizontalOptions="CenterAndExpand"
-                                     VerticalOptions="CenterAndExpand">
+                        <ContentView Padding="40,10">
                             <Frame CornerRadius="15"
-                                   VerticalOptions="CenterAndExpand"
-                                   HorizontalOptions="CenterAndExpand"
                                    IsClippedToBounds="True"
                                    BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
-                                <ContentView.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ThemeCard_OnTapped"
-                                                      NumberOfTapsRequired="1"/>
-                            </ContentView.GestureRecognizers>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ThemeCard_OnTapped"
+                                                          NumberOfTapsRequired="1"/>
+                                </Frame.GestureRecognizers>
 
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="3*"/>
-                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="6*"/>
+                                    </Grid.RowDefinitions>
 
-                                <Label Text="{Binding IdAndName}"
-                                       TextColor="{DynamicResource PrimaryTextColor}"
-                                       FontSize="Medium"
-                                       Grid.Row="0"/>
-                                <Label Text="{Binding Description}"
-                                       TextColor="{DynamicResource SecondaryTextColor}"
-                                       Grid.Row="1"/>
-                                <Image Source="{Binding ImagePath}"
-                                       Grid.Row="2"/>
-                            </Grid>
-                        </Frame>
+                                    <Label Text="{Binding IdAndName, Converter={StaticResource StringCaseConverter},
+                                                                     ConverterParameter={x:Static enums:StringCases.Upper}}"
+                                           TextColor="{DynamicResource PrimaryTextColor}"
+                                           FontSize="Medium"
+                                           Grid.Row="0"/>
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{DynamicResource SecondaryTextColor}"
+                                           HorizontalOptions="Center"
+                                           FontSize="Small"
+                                           Grid.Row="1"/>
+                                    <Image Source="{Binding ImagePath}"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           Grid.Row="2"/>
+                                </Grid>
+                            </Frame>
                         </ContentView>
                     </DataTemplate>
                 </cards:CoverFlowView.ItemTemplate>

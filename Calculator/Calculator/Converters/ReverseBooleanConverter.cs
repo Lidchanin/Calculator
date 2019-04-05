@@ -1,25 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Calculator.Converters
 {
-    public class ReverseBooleanConverter : IValueConverter, IMarkupExtension
+    public class ReverseBooleanConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !(bool)value;
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !(bool) value;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-
-        public object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return this;
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (bool) value;
     }
 }

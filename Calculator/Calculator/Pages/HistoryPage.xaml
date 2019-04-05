@@ -1,7 +1,6 @@
 ﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:controls="clr-namespace:Calculator.Controls;assembly=Calculator"
-                xmlns:converters="clr-namespace:Calculator.Converters;assembly=Calculator"
                 xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
                 xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
                 xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
@@ -119,7 +118,7 @@
             <!--#region Empty state-->
             <Grid x:Name="EmptyHistoryState" 
                   IsVisible="{Binding Source={x:Reference HistoryListView}, Path=IsVisible, 
-                                      Converter={converters:ReverseBooleanConverter}}">
+                                      Converter={StaticResource ReverseBooleanConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>

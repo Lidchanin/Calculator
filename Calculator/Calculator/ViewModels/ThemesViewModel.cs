@@ -14,19 +14,21 @@ namespace Calculator.ViewModels
             Themes.Add(new Theme
             {
                 IdAndName = Enums.Themes.Light,
-                Description = "Some desc 1asdasdlj1asdasdlj1asdasdlj1asdasdlj1asdasdlj1asdasdlj1asdasdljфыввффывффыфвфывфццвфцвыф",
-                ImagePath = "https://distributor.golding.eu/desk-calculator-white--4050-02--hd.jpg"
+                Description = ConstantHelper.LightThemeDescription,
+                ImagePath = "https://monosnap.com/image/fg6GxxbUSW6iHC0wkvJotLFUUFRz1w.png"
+                //ImagePath = "https://monosnap.com/image/6PpVuvzQmNuUSlQyTMyCPgQlKmoQt3.png"
             });
 
             Themes.Add(new Theme
             {
                 IdAndName = Enums.Themes.Dark,
-                Description = "Some desc 1222222222222222222222 222222222222222222222222222222222222222 222222222222222222222222222222222222",
-                ImagePath = "https://images-na.ssl-images-amazon.com/images/I/61TWIQWJS1L._SY741_.jpg"
+                Description = ConstantHelper.DarkThemeDescription,
+                ImagePath = "https://monosnap.com/image/XR50ALRuNS2dLO6huQ4hd5hwWaE6qo.png"
+                //ImagePath = "https://monosnap.com/image/aSR6rTB7gfy57jpS8GSVg7RsRuMtTW.png"
             });
         }
 
-        public void ChangeTheme(Theme theme)
+        public static void ChangeTheme(Theme theme)
         {
             ThemeManager.ChangeTheme(theme.IdAndName);
         }

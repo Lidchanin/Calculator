@@ -1,5 +1,6 @@
 ﻿using Calculator.Models;
 using System;
+using Calculator.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,16 +20,9 @@ namespace Calculator.Pages
 
             var currentTheme = ViewModel.GetCurrentTheme();
             ThemesView.SelectedItem = currentTheme;
-            //ThemesListView.SelectedItem = currentTheme;
-            //ThemesListView.ScrollTo(currentTheme, ScrollToPosition.MakeVisible, true);
         }
 
         #region private methods
-
-        private void ThemesListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ViewModel.ChangeTheme((Theme) e.SelectedItem);
-        }
 
         private async void CalculatorButton_OnTapped(object sender, EventArgs e)
         {
@@ -47,7 +41,7 @@ namespace Calculator.Pages
         private void ThemeCard_OnTapped(object sender, EventArgs e)
         {
             var currentTheme = (Theme)((ContentView)sender).BindingContext;
-            ViewModel.ChangeTheme(currentTheme);
+            ThemesViewModel.ChangeTheme(currentTheme);
         }
 
         #endregion private methods

@@ -33,6 +33,10 @@
         public const string NoItemsFound = "No items found";
         public const string ClearHistory = "Clear history";
         public const string GoToRecent = "Go to recent";
+        public const string SelectAppTheme = "Select application theme:";
+
+        public const string LightThemeDescription = "Simple Light application theme.";
+        public const string DarkThemeDescription = "Simple Dark application theme.";
 
         public const string HistoryItemDateFormat = "{0:d MMMM yyyy}";
 
