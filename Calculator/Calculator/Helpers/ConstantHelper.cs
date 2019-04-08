@@ -46,6 +46,9 @@
         public const string HistoryIcon = "history_icon.png";
         public const string CalculatorIcon = "calculator_icon.png";
 
+        public const string LightThemeImage = "light_theme";
+        public const string DarkThemeImage = "dark_theme";
+
         public const string NotFoundLottie = "not_found_lottie.json";
 
         #endregion Filenames

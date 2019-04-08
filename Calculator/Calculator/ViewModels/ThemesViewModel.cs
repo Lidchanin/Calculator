@@ -15,16 +15,14 @@ namespace Calculator.ViewModels
             {
                 IdAndName = Enums.Themes.Light,
                 Description = ConstantHelper.LightThemeDescription,
-                ImagePath = "https://monosnap.com/image/fg6GxxbUSW6iHC0wkvJotLFUUFRz1w.png"
-                //ImagePath = "https://monosnap.com/image/6PpVuvzQmNuUSlQyTMyCPgQlKmoQt3.png"
+                ImagePath = ConstantHelper.LightThemeImage
             });
 
             Themes.Add(new Theme
             {
                 IdAndName = Enums.Themes.Dark,
                 Description = ConstantHelper.DarkThemeDescription,
-                ImagePath = "https://monosnap.com/image/XR50ALRuNS2dLO6huQ4hd5hwWaE6qo.png"
-                //ImagePath = "https://monosnap.com/image/aSR6rTB7gfy57jpS8GSVg7RsRuMtTW.png"
+                ImagePath = ConstantHelper.DarkThemeImage
             });
         }
 

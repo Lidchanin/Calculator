@@ -6,7 +6,6 @@
                 xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
                 xmlns:viewModels="clr-namespace:Calculator.ViewModels"
                 xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
-                xmlns:cardControls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
                 xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
                 x:Class="Calculator.Pages.ThemesPage">
 
@@ -110,10 +109,13 @@
                                            HorizontalOptions="Center"
                                            FontSize="Small"
                                            Grid.Row="1"/>
-                                    <Image Source="{Binding ImagePath}"
+                                    <Frame CornerRadius="5"
+                                           Padding="0"
                                            HorizontalOptions="CenterAndExpand"
                                            VerticalOptions="CenterAndExpand"
-                                           Grid.Row="2"/>
+                                           Grid.Row="2">
+                                        <Image Source="{Binding ImagePath}"/>
+                                    </Frame>
                                 </Grid>
                             </Frame>
                         </ContentView>

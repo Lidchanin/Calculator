@@ -195,5 +195,22 @@
   <ItemGroup>
     <BundleResource Include="Resources\calculator_icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\dark_theme.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\dark_theme%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\dark_theme%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\light_theme.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\light_theme%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\light_theme%403x.png" />
+  </ItemGroup>
 </Project>
