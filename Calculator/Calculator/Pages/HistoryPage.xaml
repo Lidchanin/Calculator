@@ -80,7 +80,8 @@
                       ItemsSource="{Binding CalculatorItems}"
                       HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
-                      ItemSelected="HistoryListView_OnItemSelected">
+                      ItemSelected="HistoryListView_OnItemSelected"
+                      BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -118,7 +119,8 @@
             <!--#region Empty state-->
             <Grid x:Name="EmptyHistoryState" 
                   IsVisible="{Binding Source={x:Reference HistoryListView}, Path=IsVisible, 
-                                      Converter={StaticResource ReverseBooleanConverter}}">
+                                      Converter={StaticResource ReverseBooleanConverter}}"
+                  BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
