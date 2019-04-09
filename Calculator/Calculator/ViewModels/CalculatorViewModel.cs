@@ -4,8 +4,10 @@ using Calculator.Models;
 using System;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
+using org.mariuszgromada.math.mxparser;
 using Xamarin.Forms;
 
 namespace Calculator.ViewModels
@@ -74,45 +76,23 @@ namespace Calculator.ViewModels
         {
             try
             {
-                var dt = new DataTable();
-                var temp = dt.Compute(ExpressionString, string.Empty).ToString();
+                //var dt = new DataTable();
+                //var temp = dt.Compute(ExpressionString, string.Empty).ToString();
 
-                if (temp == ConstantHelper.PositiveInfinity || temp == ConstantHelper.NegativeInfinity)
-                {
-                    ResultString = ConstantHelper.DividingByZero;
-                }
-                else
-                {
-                    ResultString = temp;
+                var expression = new Expression(ExpressionString);
+                
+                ResultString = expression.calculate().ToString(CultureInfo.InvariantCulture);
 
-                    await App.Database.Insert(new CalculatorItem
-                    {
-                        Expression = ExpressionString,
-                        Result = ResultString,
-                        CalculationTime = DateTime.Now.ToLocalTime()
-                    });
-                }
-            }
-            catch (InvalidCastException)
-            {
-                ResultString = ConstantHelper.IncorrectExpression;
-            }
-            catch (SyntaxErrorException)
-            {
-                var lastSymbol = ExpressionString.Last().ToString();
-                if (lastSymbol.IsOperationKey())
+                await App.Database.Insert(new CalculatorItem
                 {
-                    ExpressionString = ExpressionString.Remove(ExpressionString.Length - 1, 1);
-                    ButtonPress(parameter);
-                }
-                else
-                {
-                    ResultString = ConstantHelper.IncorrectExpression;
-                }
+                    Expression = ExpressionString,
+                    Result = ResultString,
+                    CalculationTime = DateTime.Now.ToLocalTime()
+                });
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                ResultString = e.GetBaseException().Message;
             }
         }
 

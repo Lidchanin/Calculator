@@ -21,6 +21,7 @@
                 <Setter Property="IsTextPredictionEnabled" Value="False"/>
                 <Setter Property="IsSpellCheckEnabled" Value="False"/>
                 <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="Keyboard" Value="Telephone"/>
                 <Setter Property="HorizontalTextAlignment" Value="End"/>
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
@@ -45,6 +46,7 @@
         </ResourceDictionary>
     </pages:BasePage.Resources>
 
+    <!--#region NavigationBar-->
     <NavigationPage.TitleView>
         <Grid Style="{StaticResource NavBarLayoutStyle}">
             <Grid.ColumnDefinitions>
@@ -78,6 +80,7 @@
             </tinted:TintedImage>
         </Grid>
     </NavigationPage.TitleView>
+    <!--#endregion NavigationBar-->
 
     <pages:BasePage.Content>
         <Grid BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
@@ -94,6 +97,7 @@
             <!--#region Expression and Result section-->
             <controls:BorderlessEntry Text="{Binding ExpressionString}"
                                       Style="{StaticResource BaseEntryStyle}"
+                                      IsReadOnly="False"
                                       Grid.Column="0"
                                       Grid.ColumnSpan="2"
                                       Grid.Row="0"/>

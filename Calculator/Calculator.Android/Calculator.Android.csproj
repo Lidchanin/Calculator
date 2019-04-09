@@ -55,6 +55,9 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie">
       <Version>2.6.3</Version>
     </PackageReference>
+    <PackageReference Include="MathParser.org-mXparser">
+      <Version>4.3.3</Version>
+    </PackageReference>
     <PackageReference Include="Plugin.CrossPlatformTintedImage">
       <Version>1.0.0</Version>
     </PackageReference>
