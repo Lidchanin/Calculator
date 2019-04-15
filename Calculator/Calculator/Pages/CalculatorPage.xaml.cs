@@ -58,6 +58,20 @@ namespace Calculator.Pages
             });
         }
 
+        private void ExpressionString_OnFocused(object sender, FocusEventArgs e)
+        {
+            var temp = (Entry)sender;
+
+            temp.CursorPosition = _viewModel.CurrentCursorPosition;
+        }
+
+        private void ExpressionEntry_OnUnfocused(object sender, FocusEventArgs e)
+        {
+            var temp = (Entry)sender;
+
+            _viewModel.CurrentCursorPosition = temp.CursorPosition;
+        }
+
         #endregion private methods
     }
 }

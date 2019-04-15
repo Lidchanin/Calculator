@@ -18,6 +18,8 @@ namespace Calculator.iOS.Renderers
             {
                 Control.Layer.BorderWidth = 0;
                 Control.BorderStyle = UITextBorderStyle.None;
+
+                Control.InputView = new UIView();
             }
         }
     }

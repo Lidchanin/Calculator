@@ -4,6 +4,7 @@ using Calculator.Controls;
 using Calculator.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Color = Android.Graphics.Color;
 
 [assembly: ExportRenderer(typeof(BorderlessEntry), typeof(BorderlessEntryRenderer))]
 namespace Calculator.Droid.Renderers
@@ -20,7 +21,9 @@ namespace Calculator.Droid.Renderers
 
             if (Control != null)
             {
-                Control.Background = new ColorDrawable(Android.Graphics.Color.Transparent);
+                Control.Background = new ColorDrawable(Color.Transparent);
+
+                Control.ShowSoftInputOnFocus = false;
             }
         }
     }

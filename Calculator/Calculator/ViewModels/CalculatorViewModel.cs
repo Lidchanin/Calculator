@@ -1,21 +1,20 @@
 ﻿using Calculator.Enums;
 using Calculator.Helpers;
 using Calculator.Models;
-using System;
-using System.Data;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Windows.Input;
 using org.mariuszgromada.math.mxparser;
+using System;
+using System.Globalization;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Calculator.ViewModels
 {
     public class CalculatorViewModel : BaseViewModel
     {
-        public string ExpressionString { get; set; }
+        public string ExpressionString { get; set; } = string.Empty;
         public string ResultString { get; set; }
+
+        public int CurrentCursorPosition { get; set; }
 
         public ICommand ButtonPressCommand { get; set; }
 
@@ -41,7 +40,7 @@ namespace Calculator.ViewModels
                 switch (parameter)
                 {
                     case CalculatorKeys.Equal:
-                        EqualClicked(parameter);
+                        EqualClicked();
                         return;
                     case CalculatorKeys.Clear:
                         ClearClicked();
@@ -49,30 +48,17 @@ namespace Calculator.ViewModels
                     case CalculatorKeys.ClearEntry:
                         ClearEntryClicked();
                         return;
-                    case CalculatorKeys.Point:
-                        PointClicked(parameter);
-                        return;
-                    //case CalculatorKeys.LeftBracket:
-                    //    return;
-                    //case CalculatorKeys.RightBracket:
-                    //    return;
-                    default:
-                    {
-                        if (parameter.IsOperationKey())
-                        {
-                            OperationClicked(parameter);
-                            return;
-                        }
-
-                        break;
-                    }
                 }
             }
 
-            ExpressionString += parameter.GetText();
+            if (!string.IsNullOrEmpty(parameter.GetText()))
+            {
+                ExpressionString = ExpressionString.Insert(CurrentCursorPosition, parameter.GetText());
+                CurrentCursorPosition += 1;
+            }
         }
 
-        private async void EqualClicked(CalculatorKeys parameter)
+        private async void EqualClicked()
         {
             try
             {
@@ -104,31 +90,11 @@ namespace Calculator.ViewModels
 
         private void ClearEntryClicked()
         {
-            ExpressionString = ExpressionString.Remove(ExpressionString.Length - 1, 1);
-        }
+            if (CurrentCursorPosition == 0)
+                return;
 
-        private void OperationClicked(CalculatorKeys parameter)
-        {
-            var lastSymbol = ExpressionString.Last().ToString();
-
-            if (lastSymbol.IsOperationKey())
-            {
-                ExpressionString = ExpressionString.Remove(ExpressionString.Length - 1, 1) + parameter.GetText();
-            }
-            else
-            {
-                ExpressionString += parameter.GetText();
-            }
-        }
-
-        private void PointClicked(CalculatorKeys parameter)
-        {
-            var lastSymbol = ExpressionString.Last().ToString();
-
-            if (lastSymbol != CalculatorKeys.Point.GetText())
-            {
-                ExpressionString += parameter.GetText();
-            }
+            ExpressionString = ExpressionString.Remove(CurrentCursorPosition - 1, 1);
+            CurrentCursorPosition -= 1;
         }
 
         #endregion

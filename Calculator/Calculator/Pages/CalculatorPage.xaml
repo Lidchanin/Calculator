@@ -96,14 +96,16 @@
 
             <!--#region Expression and Result section-->
             <controls:BorderlessEntry Text="{Binding ExpressionString}"
-                                      Style="{StaticResource BaseEntryStyle}"
-                                      IsReadOnly="False"
+                                      CursorPosition="{Binding CurrentCursorPosition, Mode=OneWay}"
+                                      Focused="VisualElement_OnFocused"
+                                      Unfocused="VisualElement_OnUnfocused"
                                       Grid.Column="0"
                                       Grid.ColumnSpan="2"
                                       Grid.Row="0"/>
 
             <controls:BorderlessEntry Text="{Binding ResultString}"
                                       Style="{StaticResource BaseEntryStyle}"
+                                      IsReadOnly="False"
                                       Grid.Column="0"
                                       Grid.ColumnSpan="2"
                                       Grid.Row="1"/>
