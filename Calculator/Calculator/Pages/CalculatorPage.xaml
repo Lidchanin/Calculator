@@ -20,10 +20,7 @@
                 <Setter Property="FontSize" Value="Large"/>
                 <Setter Property="IsTextPredictionEnabled" Value="False"/>
                 <Setter Property="IsSpellCheckEnabled" Value="False"/>
-                <Setter Property="IsReadOnly" Value="True"/>
-                <Setter Property="Keyboard" Value="Telephone"/>
                 <Setter Property="HorizontalTextAlignment" Value="End"/>
-                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
 
@@ -96,9 +93,10 @@
 
             <!--#region Expression and Result section-->
             <controls:BorderlessEntry Text="{Binding ExpressionString}"
+                                      Style="{StaticResource BaseEntryStyle}"
                                       CursorPosition="{Binding CurrentCursorPosition, Mode=OneWay}"
-                                      Focused="VisualElement_OnFocused"
-                                      Unfocused="VisualElement_OnUnfocused"
+                                      Focused="ExpressionString_OnFocused"
+                                      Unfocused="ExpressionEntry_OnUnfocused"
                                       Grid.Column="0"
                                       Grid.ColumnSpan="2"
                                       Grid.Row="0"/>
