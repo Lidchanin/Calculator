@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="Calculator.ThemeResources.LightTheme">
+
+    <!--#region Colors-->
+    <Color x:Key="NavBarItemsColor">#FFFFFF</Color>
+    <Color x:Key="NavBarBackgroundColor">#757575</Color>
+
+    <Color x:Key="PrimaryTextColor">#212121</Color>
+    <Color x:Key="SecondaryTextColor">#BDBDBD</Color>
+    <Color x:Key="TertiaryTextColor">#D3D3D3</Color>
+
+    <Color x:Key="PrimaryBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="SecondaryBackgroundColor">#757575</Color>
+    <Color x:Key="TertiaryBackgroundColor">#212121</Color>
+    <!--#endregion Colors-->
+</ResourceDictionary>

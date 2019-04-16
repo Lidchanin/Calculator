@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:enums="clr-namespace:Calculator.Enums;assembly=Calculator"
+                xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
+                xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
+                xmlns:viewModels="clr-namespace:Calculator.ViewModels"
+                xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
+                x:Class="Calculator.Pages.ThemesPage">
+
+    <pages:BasePage.BindingContext>
+        <viewModels:ThemesViewModel x:Name="ViewModel"/>
+    </pages:BasePage.BindingContext>
+
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="RowSpacing" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+
+    <NavigationPage.TitleView>
+        <Grid Style="{StaticResource NavBarLayoutStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{x:Static helpers:ConstantHelper.Themes}"
+                   Style="{StaticResource NavBarLabelStyle}"
+                   Grid.Column="0"/>
+
+            <tinted:TintedImage x:Name="HistoryButton"
+                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="1">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="HistoryButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+
+            <tinted:TintedImage x:Name="CalculatorButton"
+                                Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="2">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CalculatorButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <pages:BasePage.Content>
+        <Grid BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="{x:Static helpers:ConstantHelper.SelectAppTheme}"
+                   TextColor="{DynamicResource TertiaryTextColor}"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Grid.Row="0"/>
+
+            <cards:CoverFlowView x:Name="ThemesView" 
+                                 ItemsSource="{Binding Themes}"
+                                 PositionShiftValue="60"
+                                 Margin="0,20"
+                                 Grid.Row="1">
+                <cards:CoverFlowView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView Padding="40,10">
+                            <Frame CornerRadius="15"
+                                   IsClippedToBounds="True"
+                                   BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ThemeCard_OnTapped"
+                                                          NumberOfTapsRequired="1"/>
+                                </Frame.GestureRecognizers>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="6*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Text="{Binding IdAndName, Converter={StaticResource StringCaseConverter},
+                                                                     ConverterParameter={x:Static enums:StringCases.Upper}}"
+                                           TextColor="{DynamicResource PrimaryTextColor}"
+                                           FontSize="Medium"
+                                           Grid.Row="0"/>
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{DynamicResource SecondaryTextColor}"
+                                           HorizontalOptions="Center"
+                                           FontSize="Small"
+                                           Grid.Row="1"/>
+                                    <Frame CornerRadius="5"
+                                           Padding="0"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           Grid.Row="2">
+                                        <Image Source="{Binding ImagePath}"/>
+                                    </Frame>
+                                </Grid>
+                            </Frame>
+                        </ContentView>
+                    </DataTemplate>
+                </cards:CoverFlowView.ItemTemplate>
+            </cards:CoverFlowView>
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

@@ -1,6 +1,6 @@
 ﻿namespace Calculator.Enums
 {
-    public enum CalculatorKey
+    public enum CalculatorKeys
     {
         Zero,
         One,

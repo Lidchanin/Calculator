@@ -5,76 +5,76 @@ namespace Calculator.Helpers
 {
     public static class CalculatorKeyExtensions
     {
-        private static readonly CalculatorKey[] OperationKeys =
+        private static readonly CalculatorKeys[] OperationKeys =
         {
-            CalculatorKey.Plus,
-            CalculatorKey.Minus,
-            CalculatorKey.Multiply,
-            CalculatorKey.Divide
+            CalculatorKeys.Plus,
+            CalculatorKeys.Minus,
+            CalculatorKeys.Multiply,
+            CalculatorKeys.Divide
         };
 
-        private static readonly CalculatorKey[] NumberKeys =
+        private static readonly CalculatorKeys[] NumberKeys =
         {
-            CalculatorKey.Zero,
-            CalculatorKey.One,
-            CalculatorKey.Two,
-            CalculatorKey.Three,
-            CalculatorKey.Four,
-            CalculatorKey.Five,
-            CalculatorKey.Six,
-            CalculatorKey.Seven,
-            CalculatorKey.Eight,
-            CalculatorKey.Nine
+            CalculatorKeys.Zero,
+            CalculatorKeys.One,
+            CalculatorKeys.Two,
+            CalculatorKeys.Three,
+            CalculatorKeys.Four,
+            CalculatorKeys.Five,
+            CalculatorKeys.Six,
+            CalculatorKeys.Seven,
+            CalculatorKeys.Eight,
+            CalculatorKeys.Nine
         };
 
-        public static string GetText(this CalculatorKey key)
+        public static string GetText(this CalculatorKeys key)
         {
             switch (key)
             {
-                case CalculatorKey.Zero:
-                case CalculatorKey.One:
-                case CalculatorKey.Two:
-                case CalculatorKey.Three:
-                case CalculatorKey.Four:
-                case CalculatorKey.Five:
-                case CalculatorKey.Six:
-                case CalculatorKey.Seven:
-                case CalculatorKey.Eight:
-                case CalculatorKey.Nine:
+                case CalculatorKeys.Zero:
+                case CalculatorKeys.One:
+                case CalculatorKeys.Two:
+                case CalculatorKeys.Three:
+                case CalculatorKeys.Four:
+                case CalculatorKeys.Five:
+                case CalculatorKeys.Six:
+                case CalculatorKeys.Seven:
+                case CalculatorKeys.Eight:
+                case CalculatorKeys.Nine:
                     return ((int) key).ToString();
-                case CalculatorKey.Plus:
+                case CalculatorKeys.Plus:
                     return "+";
-                case CalculatorKey.Minus:
+                case CalculatorKeys.Minus:
                     return "-";
-                case CalculatorKey.Multiply:
+                case CalculatorKeys.Multiply:
                     return "*";
-                case CalculatorKey.Divide:
+                case CalculatorKeys.Divide:
                     return "/";
-                case CalculatorKey.Point:
+                case CalculatorKeys.Point:
                     return ".";
-                case CalculatorKey.LeftBracket:
+                case CalculatorKeys.LeftBracket:
                     return "(";
-                case CalculatorKey.RightBracket:
+                case CalculatorKeys.RightBracket:
                     return ")";
                 default:
                     return null;
             }
         }
 
-        public static bool IsOperationKey(this CalculatorKey key)
+        public static bool IsOperationKey(this CalculatorKeys key)
         {
             return OperationKeys.Contains(key);
         }
 
         public static bool IsOperationKey(this string key)
         {
-            return key == CalculatorKey.Minus.GetText() ||
-                   key == CalculatorKey.Plus.GetText() ||
-                   key == CalculatorKey.Divide.GetText() ||
-                   key == CalculatorKey.Multiply.GetText();
+            return key == CalculatorKeys.Minus.GetText() ||
+                   key == CalculatorKeys.Plus.GetText() ||
+                   key == CalculatorKeys.Divide.GetText() ||
+                   key == CalculatorKeys.Multiply.GetText();
         }
 
-        public static bool IsNumber(this CalculatorKey key)
+        public static bool IsNumber(this CalculatorKeys key)
         {
             return NumberKeys.Contains(key);
         }

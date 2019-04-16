@@ -1,0 +1,148 @@
+﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:controls="clr-namespace:Calculator.Controls;assembly=Calculator"
+                xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
+                xmlns:pages="clr-namespace:Calculator.Pages;assembly=Calculator"
+                xmlns:viewModels="clr-namespace:Calculator.ViewModels;assembly=Calculator"
+                xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+                xmlns:tinted="clr-namespace:Plugin.CrossPlatformTintedImage.Abstractions;assembly=Plugin.CrossPlatformTintedImage.Abstractions"
+                x:Class="Calculator.Pages.HistoryPage">
+
+    <pages:BasePage.BindingContext>
+        <viewModels:HistoryViewModel x:Name="ViewModel"/>
+    </pages:BasePage.BindingContext>
+
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="RowSpacing" Value="0"/>
+            </Style>
+
+            <Style TargetType="controls:BorderlessEntry">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="HeaderAndFooterButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource SecondaryBackgroundColor}"/>
+                <Setter Property="CornerRadius" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+
+    <NavigationPage.TitleView>
+        <Grid Style="{StaticResource NavBarLayoutStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{x:Static helpers:ConstantHelper.History}"
+                   Style="{StaticResource NavBarLabelStyle}"
+                   Grid.Column="0"/>
+
+            <tinted:TintedImage x:Name="ThemesButton"
+                                Source="{x:Static helpers:ConstantHelper.PaletteIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="1">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ThemesButton_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+
+            <tinted:TintedImage x:Name="CalculatorButton" 
+                                Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
+                                Style="{StaticResource NavBarIconStyle}"
+                                Grid.Column="2">
+                <tinted:TintedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CalculatorButton_OnTapped" 
+                                          NumberOfTapsRequired="1"/>
+                </tinted:TintedImage.GestureRecognizers>
+            </tinted:TintedImage>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <pages:BasePage.Content>
+        <Grid BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <ListView x:Name="HistoryListView" 
+                      ItemsSource="{Binding CalculatorItems}"
+                      HasUnevenRows="True"
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="HistoryListView_OnItemSelected"
+                      BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="10,5"
+                                         Spacing="0">
+                                <Label Text="{Binding CalculationTime, StringFormat={x:Static helpers:ConstantHelper.HistoryItemDateFormat}}"
+                                       TextColor="{DynamicResource TertiaryTextColor}"/>
+                                <controls:BorderlessEntry Text="{Binding Expression}"/>
+                                <controls:BorderlessEntry Text="{Binding Result}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.Header>
+                    <Button Text="{x:Static helpers:ConstantHelper.GoToRecent}"
+                            Style="{StaticResource HeaderAndFooterButtonStyle}"
+                            Clicked="MoveToLastButton_OnClicked"/>
+                </ListView.Header>
+
+                <ListView.Footer>
+                    <Button Text="{x:Static helpers:ConstantHelper.ClearHistory}"
+                            Style="{StaticResource HeaderAndFooterButtonStyle}"
+                            Command="{Binding ClearHistoryCommand}"/>
+                </ListView.Footer>
+
+                <ListView.Triggers>
+                    <DataTrigger TargetType="ListView"
+                                 Binding="{Binding CalculatorItems.Count}" Value="0">
+                        <Setter Property="ListView.IsVisible" Value="False"/>
+                    </DataTrigger>
+                </ListView.Triggers>
+            </ListView>
+
+            <!--#region Empty state-->
+            <Grid x:Name="EmptyHistoryState" 
+                  IsVisible="{Binding Source={x:Reference HistoryListView}, Path=IsVisible, 
+                                      Converter={StaticResource ReverseBooleanConverter}}"
+                  BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <lottie:AnimationView IsEnabled="{Binding Source={x:Reference EmptyHistoryState}, Path=IsVisible}" 
+                                      Animation="{x:Static helpers:ConstantHelper.NotFoundLottie}"
+                                      AutoPlay="True"
+                                      Loop="True"
+                                      WidthRequest="250"
+                                      HeightRequest="250"
+                                      Grid.Row="0"
+                                      Grid.RowSpan="2"/>
+
+                <Label Text="{x:Static helpers:ConstantHelper.NoItemsFound}"
+                       TextColor="{DynamicResource PrimaryTextColor}"
+                       FontSize="Large"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center"
+                       Grid.Row="1"/>
+            </Grid>
+            <!--#endregion Empty state-->
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>
