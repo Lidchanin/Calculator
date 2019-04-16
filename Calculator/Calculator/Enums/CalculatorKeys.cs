@@ -20,7 +20,10 @@
         Plus,
         Equal,
         Point,
-        LeftBracket,
-        RightBracket
+        LeftParenthesis,
+        RightParenthesis,
+        Percent,
+        Caret,
+        SquareRoot
     }
 }

@@ -14,5 +14,6 @@
     <Color x:Key="PrimaryBackgroundColor">#757575</Color>
     <Color x:Key="SecondaryBackgroundColor">#455A64</Color>
     <Color x:Key="TertiaryBackgroundColor">#212121</Color>
+    <Color x:Key="QuaternaryBackgroundColor">#313233</Color>
     <!--#endregion Colors-->
 </ResourceDictionary>

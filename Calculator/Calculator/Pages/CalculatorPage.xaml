@@ -36,9 +36,14 @@
                 <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference NumbersSectionGrid}, Path=BackgroundColor}"/>
             </Style>
 
-            <Style x:Key="OperationsSectionButtonStyle" TargetType="Button"
+            <Style x:Key="MainOperationsSectionButtonStyle" TargetType="Button"
                    BasedOn="{StaticResource BaseButtonStyle}">
-                <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference OperationsSectionGrid}, Path=BackgroundColor}"/>
+                <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference MainOperationsSectionGrid}, Path=BackgroundColor}"/>
+            </Style>
+
+            <Style x:Key="SecondaryOperationsSectionButtonStyle" TargetType="Button"
+                   BasedOn="{StaticResource BaseButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference SecondaryOperationsSectionGrid}, Path=BackgroundColor}"/>
             </Style>
         </ResourceDictionary>
     </pages:BasePage.Resources>
@@ -84,6 +89,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -98,14 +104,14 @@
                                       Focused="ExpressionEntry_OnFocused"
                                       Unfocused="ExpressionEntry_OnUnfocused"
                                       Grid.Column="0"
-                                      Grid.ColumnSpan="2"
+                                      Grid.ColumnSpan="3"
                                       Grid.Row="0"/>
 
             <controls:BorderlessEntry Text="{Binding ResultString}"
                                       Style="{StaticResource BaseEntryStyle}"
                                       IsReadOnly="True"
                                       Grid.Column="0"
-                                      Grid.ColumnSpan="2"
+                                      Grid.ColumnSpan="3"
                                       Grid.Row="1"/>
             <!--#endregion Expression and Result section-->
 
@@ -188,8 +194,8 @@
             </Grid>
             <!--#endregion Numbers section-->
 
-            <!--#region Operations section-->
-            <Grid x:Name="OperationsSectionGrid" 
+            <!--#region Main operations section-->
+            <Grid x:Name="MainOperationsSectionGrid" 
                   BackgroundColor="{DynamicResource TertiaryBackgroundColor}"
                   Grid.Column="1"
                   Grid.Row="2">
@@ -205,28 +211,68 @@
                 </Grid.RowDefinitions>
 
                 <Button Text="{x:Static helpers:ConstantHelper.ClearButtonText}"
-                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        Style="{StaticResource MainOperationsSectionButtonStyle}"
                         CommandParameter="{x:Static enums:CalculatorKeys.ClearEntry}"
                         Pressed="ClearButton_OnPressed"
                         Grid.Row="0"/>
                 <Button Text="{x:Static helpers:ConstantHelper.DivideButtonText}"
-                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        Style="{StaticResource MainOperationsSectionButtonStyle}"
                         CommandParameter="{x:Static enums:CalculatorKeys.Divide}"
                         Grid.Row="1"/>
                 <Button Text="{x:Static helpers:ConstantHelper.MultiplyButtonText}"
-                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        Style="{StaticResource MainOperationsSectionButtonStyle}"
                         CommandParameter="{x:Static enums:CalculatorKeys.Multiply}"
                         Grid.Row="2"/>
                 <Button Text="{x:Static helpers:ConstantHelper.MinusButtonText}"
-                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        Style="{StaticResource MainOperationsSectionButtonStyle}"
                         CommandParameter="{x:Static enums:CalculatorKeys.Minus}"
                         Grid.Row="3"/>
                 <Button Text="{x:Static helpers:ConstantHelper.PlusButtonText}"
-                        Style="{StaticResource OperationsSectionButtonStyle}"
+                        Style="{StaticResource MainOperationsSectionButtonStyle}"
                         CommandParameter="{x:Static enums:CalculatorKeys.Plus}"
                         Grid.Row="4"/>
             </Grid>
-            <!--#endregion Operations section-->
+            <!--#endregion Main operations section-->
+
+            <!--#region Secondary operations section-->
+            <Grid x:Name="SecondaryOperationsSectionGrid" 
+                  BackgroundColor="{DynamicResource QuaternaryBackgroundColor}"
+                  Grid.Column="2"
+                  Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Button Text="{x:Static helpers:ConstantHelper.LeftParenthesisButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.LeftParenthesis}"
+                        Grid.Row="0"/>
+                <Button Text="{x:Static helpers:ConstantHelper.RightParenthesisButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.RightParenthesis}"
+                        Grid.Row="1"/>
+                <Button Text="{x:Static helpers:ConstantHelper.PercentButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.Percent}"
+                        Grid.Row="2"/>
+                <Button Text="{x:Static helpers:ConstantHelper.CaretButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.Caret}"
+                        Grid.Row="3"/>
+                <Button Text="{x:Static helpers:ConstantHelper.SquareRootButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.SquareRoot}"
+                        IsEnabled="False"
+                        Grid.Row="4"/>
+            </Grid>
+            <!--#endregion Secondary operations section-->
         </Grid>
     </pages:BasePage.Content>
 </pages:BasePage>

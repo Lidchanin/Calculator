@@ -52,10 +52,14 @@ namespace Calculator.Helpers
                     return "/";
                 case CalculatorKeys.Point:
                     return ".";
-                case CalculatorKeys.LeftBracket:
+                case CalculatorKeys.LeftParenthesis:
                     return "(";
-                case CalculatorKeys.RightBracket:
+                case CalculatorKeys.RightParenthesis:
                     return ")";
+                case CalculatorKeys.Percent:
+                    return "%";
+                case CalculatorKeys.Caret:
+                    return "^";
                 default:
                     return null;
             }

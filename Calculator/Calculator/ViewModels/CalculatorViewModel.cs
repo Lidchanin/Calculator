@@ -66,8 +66,10 @@ namespace Calculator.ViewModels
                 //var temp = dt.Compute(ExpressionString, string.Empty).ToString();
 
                 var expression = new Expression(ExpressionString);
-                
-                ResultString = expression.calculate().ToString(CultureInfo.InvariantCulture);
+
+                ResultString = expression.checkSyntax()
+                    ? expression.calculate().ToString(CultureInfo.InvariantCulture)
+                    : ConstantHelper.IncorrectExpression;
 
                 await App.Database.Insert(new CalculatorItem
                 {
@@ -86,6 +88,7 @@ namespace Calculator.ViewModels
         {
             ExpressionString = string.Empty;
             ResultString = string.Empty;
+            CurrentCursorPosition = 0;
         }
 
         private void ClearEntryClicked()

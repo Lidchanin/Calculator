@@ -25,9 +25,11 @@
 	<key>CFBundleDisplayName</key>
 	<string>Calculator</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.Calculator</string>
+	<string>com.Lidchanin.Calculator</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.1</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>2.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>SplashScreen</string>
 	<key>CFBundleName</key>

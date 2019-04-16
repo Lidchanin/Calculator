@@ -12,23 +12,24 @@
         public const string SevenButtonText = "7";
         public const string EightButtonText = "8";
         public const string NineButtonText = "9";
-        public const string MinusButtonText = "-";
+        public const string MinusButtonText = "−";
         public const string PlusButtonText = "+";
-        public const string DivideButtonText = "/";
-        public const string MultiplyButtonText = "*";
+        public const string DivideButtonText = "÷";
+        public const string MultiplyButtonText = "×";
         public const string EqualButtonText = "=";
-        public const string ClearButtonText = "DEL";
+        public const string ClearButtonText = "←";
         public const string PointButtonText = ".";
-
-        public const string PositiveInfinity = "Infinity";
-        public const string NegativeInfinity = "-Infinity";
+        public const string LeftParenthesisButtonText = "(";
+        public const string RightParenthesisButtonText = ")";
+        public const string PercentButtonText = "%";
+        public const string CaretButtonText = "^";
+        public const string SquareRootButtonText = "√";
 
         public const string History = "History";
         public const string Themes = "Themes";
         public const string Calculator = "Calculator";
 
         public const string IncorrectExpression = "INCORRECT EXPRESSION!";
-        public const string DividingByZero = "DIVIDING BY ZERO!";
 
         public const string NoItemsFound = "No items found";
         public const string ClearHistory = "Clear history";
