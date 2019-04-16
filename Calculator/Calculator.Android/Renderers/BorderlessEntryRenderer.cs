@@ -23,6 +23,8 @@ namespace Calculator.Droid.Renderers
             {
                 Control.Background = new ColorDrawable(Color.Transparent);
 
+                //Need to change keyboard visibility
+                //https://github.com/xamarin/Xamarin.Forms/issues/4555
                 Control.ShowSoftInputOnFocus = false;
             }
         }

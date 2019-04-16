@@ -95,7 +95,7 @@
             <controls:BorderlessEntry Text="{Binding ExpressionString}"
                                       Style="{StaticResource BaseEntryStyle}"
                                       CursorPosition="{Binding CurrentCursorPosition, Mode=OneWay}"
-                                      Focused="ExpressionString_OnFocused"
+                                      Focused="ExpressionEntry_OnFocused"
                                       Unfocused="ExpressionEntry_OnUnfocused"
                                       Grid.Column="0"
                                       Grid.ColumnSpan="2"
@@ -103,7 +103,7 @@
 
             <controls:BorderlessEntry Text="{Binding ResultString}"
                                       Style="{StaticResource BaseEntryStyle}"
-                                      IsReadOnly="False"
+                                      IsReadOnly="True"
                                       Grid.Column="0"
                                       Grid.ColumnSpan="2"
                                       Grid.Row="1"/>

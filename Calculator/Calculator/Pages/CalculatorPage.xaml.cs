@@ -1,4 +1,5 @@
-﻿using Calculator.Enums;
+﻿using Calculator.Controls;
+using Calculator.Enums;
 using Calculator.ViewModels;
 using System;
 using Xamarin.Forms;
@@ -58,19 +59,11 @@ namespace Calculator.Pages
             });
         }
 
-        private void ExpressionString_OnFocused(object sender, FocusEventArgs e)
-        {
-            var temp = (Entry)sender;
+        private void ExpressionEntry_OnFocused(object sender, FocusEventArgs e) =>
+            ((BorderlessEntry) sender).CursorPosition = _viewModel.CurrentCursorPosition;
 
-            temp.CursorPosition = _viewModel.CurrentCursorPosition;
-        }
-
-        private void ExpressionEntry_OnUnfocused(object sender, FocusEventArgs e)
-        {
-            var temp = (Entry)sender;
-
-            _viewModel.CurrentCursorPosition = temp.CursorPosition;
-        }
+        private void ExpressionEntry_OnUnfocused(object sender, FocusEventArgs e) =>
+            _viewModel.CurrentCursorPosition = ((BorderlessEntry) sender).CursorPosition;
 
         #endregion private methods
     }
