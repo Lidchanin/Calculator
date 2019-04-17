@@ -16,17 +16,15 @@ namespace Calculator.ViewModels
 
         public int CurrentCursorPosition { get; set; }
 
-        public ICommand ButtonPressCommand { get; set; }
+        public ICommand ButtonPressCommand { get; }
 
         public CalculatorViewModel()
         {
             ButtonPressCommand = new Command<CalculatorKeys>(ButtonPress);
         }
 
-        public CalculatorViewModel(string expression, string result)
+        public CalculatorViewModel(string expression, string result) : this()
         {
-            ButtonPressCommand = new Command<CalculatorKeys>(ButtonPress);
-
             ExpressionString = expression;
             ResultString = result;
         }

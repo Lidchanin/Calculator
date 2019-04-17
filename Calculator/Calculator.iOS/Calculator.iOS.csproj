@@ -253,4 +253,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\light_theme%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\left_arrow_icon.png" />
+  </ItemGroup>
 </Project>

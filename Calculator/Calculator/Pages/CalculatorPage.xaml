@@ -10,6 +10,7 @@
 
     <pages:BasePage.Resources>
         <ResourceDictionary>
+            <!--#region Styles-->
             <Style TargetType="Grid">
                 <Setter Property="ColumnSpacing" Value="0"/>
                 <Setter Property="RowSpacing" Value="0"/>
@@ -45,6 +46,7 @@
                    BasedOn="{StaticResource BaseButtonStyle}">
                 <Setter Property="BackgroundColor" Value="{Binding Source={x:Reference SecondaryOperationsSectionGrid}, Path=BackgroundColor}"/>
             </Style>
+            <!--#endregion Styles-->
         </ResourceDictionary>
     </pages:BasePage.Resources>
 
@@ -85,41 +87,44 @@
     <!--#endregion NavigationBar-->
 
     <pages:BasePage.Content>
-        <Grid BackgroundColor="{DynamicResource PrimaryBackgroundColor}">
+        <Grid x:Name="MainView" 
+              BackgroundColor="{DynamicResource QuaternaryBackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
 
             <!--#region Expression and Result section-->
-            <controls:BorderlessEntry Text="{Binding ExpressionString}"
-                                      Style="{StaticResource BaseEntryStyle}"
-                                      CursorPosition="{Binding CurrentCursorPosition, Mode=OneWay}"
-                                      Focused="ExpressionEntry_OnFocused"
-                                      Unfocused="ExpressionEntry_OnUnfocused"
-                                      Grid.Column="0"
-                                      Grid.ColumnSpan="3"
-                                      Grid.Row="0"/>
+            <FlexLayout Direction="Column"
+                        AlignItems="Stretch"
+                        JustifyContent="SpaceEvenly"
+                        BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="0">
 
-            <controls:BorderlessEntry Text="{Binding ResultString}"
-                                      Style="{StaticResource BaseEntryStyle}"
-                                      IsReadOnly="True"
-                                      Grid.Column="0"
-                                      Grid.ColumnSpan="3"
-                                      Grid.Row="1"/>
+                <controls:BorderlessEntry Text="{Binding ExpressionString}"
+                                          Style="{StaticResource BaseEntryStyle}"
+                                          CursorPosition="{Binding CurrentCursorPosition, Mode=OneWay}"
+                                          Focused="ExpressionEntry_OnFocused"
+                                          Unfocused="ExpressionEntry_OnUnfocused"/>
+
+                <controls:BorderlessEntry Text="{Binding ResultString}"
+                                          Style="{StaticResource BaseEntryStyle}"
+                                          IsReadOnly="True"/>
+            </FlexLayout>
             <!--#endregion Expression and Result section-->
 
             <!--#region Numbers section-->
             <Grid x:Name="NumbersSectionGrid" 
                   BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                   Grid.Column="0"
-                  Grid.Row="2">
+                  Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -194,11 +199,45 @@
             </Grid>
             <!--#endregion Numbers section-->
 
+            <!--#region Secondary operations section-->
+            <Grid x:Name="SecondaryOperationsSectionGrid" 
+                  BackgroundColor="{DynamicResource QuaternaryBackgroundColor}"
+                  Grid.Column="1"
+                  Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Button Text="{x:Static helpers:ConstantHelper.LeftParenthesisButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.LeftParenthesis}"
+                        Grid.Row="0"/>
+                <Button Text="{x:Static helpers:ConstantHelper.RightParenthesisButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.RightParenthesis}"
+                        Grid.Row="1"/>
+                <Button Text="{x:Static helpers:ConstantHelper.PercentButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.Percent}"
+                        Grid.Row="2"/>
+                <Button Text="{x:Static helpers:ConstantHelper.CaretButtonText}"
+                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
+                        CommandParameter="{x:Static enums:CalculatorKeys.Caret}"
+                        Grid.Row="3"/>
+            </Grid>
+            <!--#endregion Secondary operations section-->
+
             <!--#region Main operations section-->
             <Grid x:Name="MainOperationsSectionGrid" 
                   BackgroundColor="{DynamicResource TertiaryBackgroundColor}"
                   Grid.Column="1"
-                  Grid.Row="2">
+                  Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -234,45 +273,23 @@
             </Grid>
             <!--#endregion Main operations section-->
 
-            <!--#region Secondary operations section-->
-            <Grid x:Name="SecondaryOperationsSectionGrid" 
-                  BackgroundColor="{DynamicResource QuaternaryBackgroundColor}"
+            <!--#region Expand/Collapse Secondary operations switcher section-->
+            <Grid x:Name="SecondarySectionVisibilitySwitcher"
+                  BackgroundColor="Transparent"
                   Grid.Column="2"
-                  Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
+                  Grid.Row="1">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ChangeSecondaryExtensibility_OnTapped"
+                                          NumberOfTapsRequired="1"/>
+                </Grid.GestureRecognizers>
 
-                <Button Text="{x:Static helpers:ConstantHelper.LeftParenthesisButtonText}"
-                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
-                        CommandParameter="{x:Static enums:CalculatorKeys.LeftParenthesis}"
-                        Grid.Row="0"/>
-                <Button Text="{x:Static helpers:ConstantHelper.RightParenthesisButtonText}"
-                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
-                        CommandParameter="{x:Static enums:CalculatorKeys.RightParenthesis}"
-                        Grid.Row="1"/>
-                <Button Text="{x:Static helpers:ConstantHelper.PercentButtonText}"
-                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
-                        CommandParameter="{x:Static enums:CalculatorKeys.Percent}"
-                        Grid.Row="2"/>
-                <Button Text="{x:Static helpers:ConstantHelper.CaretButtonText}"
-                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
-                        CommandParameter="{x:Static enums:CalculatorKeys.Caret}"
-                        Grid.Row="3"/>
-                <Button Text="{x:Static helpers:ConstantHelper.SquareRootButtonText}"
-                        Style="{StaticResource SecondaryOperationsSectionButtonStyle}"
-                        CommandParameter="{x:Static enums:CalculatorKeys.SquareRoot}"
-                        IsEnabled="False"
-                        Grid.Row="4"/>
+                <tinted:TintedImage x:Name="ArrowImage"
+                                Source="{x:Static helpers:ConstantHelper.LeftArrowIcon}"
+                                TintColor="{DynamicResource SecondaryTextColor}"
+                                VerticalOptions="Center">
+                </tinted:TintedImage>
             </Grid>
-            <!--#endregion Secondary operations section-->
+            <!--#endregion Expand/Collapse Secondary operations switcher section-->
         </Grid>
     </pages:BasePage.Content>
 </pages:BasePage>
