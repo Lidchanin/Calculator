@@ -1,6 +1,6 @@
 ﻿using Calculator.Models;
-using System;
 using Calculator.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -26,16 +26,16 @@ namespace Calculator.Pages
 
         private async void CalculatorButton_OnTapped(object sender, EventArgs e)
         {
-            CalculatorButton.IsEnabled = false;
+            await PopupService.ShowLoadingAsync();
             await Navigation.PopToRootAsync(true);
-            CalculatorButton.IsEnabled = true;
+            await PopupService.HideLastPopupAsync();
         }
 
         private async void HistoryButton_OnTapped(object sender, EventArgs e)
         {
-            HistoryButton.IsEnabled = false;
+            await PopupService.ShowLoadingAsync();
             await Navigation.PushAsync(new HistoryPage());
-            HistoryButton.IsEnabled = true;
+            await PopupService.HideLastPopupAsync();
         }
 
         private void ThemeCard_OnTapped(object sender, EventArgs e)

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:helpers="clr-namespace:Calculator.Helpers;assembly=Calculator"
+                  xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+                  xmlns:popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  x:Class="Calculator.Pages.PopupPages.LoadingPopupPage"
+                  CloseWhenBackgroundIsClicked="False">
+    
+    <popups:PopupPage.Content>
+        <lottie:AnimationView Animation="{x:Static helpers:ConstantHelper.LoaderLottie}"
+                              AutoPlay="True"
+                              Loop="True"
+                              Speed="2"
+                              WidthRequest="250"
+                              HeightRequest="250"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"/>
+    </popups:PopupPage.Content>
+</popups:PopupPage>

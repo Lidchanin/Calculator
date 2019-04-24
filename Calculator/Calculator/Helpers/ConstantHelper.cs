@@ -53,6 +53,7 @@
         public const string DarkThemeImage = "dark_theme";
 
         public const string NotFoundLottie = "not_found_lottie.json";
+        public const string LoaderLottie = "loader_lottie.json";
 
         #endregion Filenames
     }

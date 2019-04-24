@@ -60,6 +60,8 @@ namespace Calculator.ViewModels
         {
             try
             {
+                await PopupService.ShowLoadingAsync();
+
                 //var dt = new DataTable();
                 //var temp = dt.Compute(ExpressionString, string.Empty).ToString();
 
@@ -79,6 +81,10 @@ namespace Calculator.ViewModels
             catch (Exception e)
             {
                 ResultString = e.GetBaseException().Message;
+            }
+            finally
+            {
+                await PopupService.HideLastPopupAsync();
             }
         }
 

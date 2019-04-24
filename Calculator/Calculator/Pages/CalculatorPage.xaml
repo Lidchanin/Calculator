@@ -63,8 +63,7 @@
                    Style="{StaticResource NavBarLabelStyle}"
                    Grid.Column="0"/>
 
-            <tinted:TintedImage x:Name="HistoryButton"
-                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
+            <tinted:TintedImage Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
                                 Style="{StaticResource NavBarIconStyle}"
                                 Grid.Column="1">
                 <tinted:TintedImage.GestureRecognizers>
@@ -73,8 +72,7 @@
                 </tinted:TintedImage.GestureRecognizers>
             </tinted:TintedImage>
 
-            <tinted:TintedImage x:Name="ThemesButton" 
-                                Source="{x:Static helpers:ConstantHelper.PaletteIcon}"
+            <tinted:TintedImage Source="{x:Static helpers:ConstantHelper.PaletteIcon}"
                                 Style="{StaticResource NavBarIconStyle}"
                                 Grid.Column="2">
                 <tinted:TintedImage.GestureRecognizers>

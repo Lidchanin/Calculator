@@ -23,27 +23,31 @@ namespace Calculator.Pages
         #region private methods
 
         private async void ThemesButton_OnTapped(object sender, EventArgs e)
-	    {
-	        ThemesButton.IsEnabled = false;
+        {
+            await PopupService.ShowLoadingAsync();
 	        await Navigation.PushAsync(new ThemesPage());
-	        ThemesButton.IsEnabled = true;
-	    }
+            await PopupService.HideLastPopupAsync();
+        }
 
 	    private async void CalculatorButton_OnTapped(object sender, EventArgs e)
 	    {
-	        CalculatorButton.IsEnabled = false;
+	        await PopupService.ShowLoadingAsync();
 	        await Navigation.PopToRootAsync(true);
-	        CalculatorButton.IsEnabled = true;
+	        await PopupService.HideLastPopupAsync();
 	    }
 
 	    private async void HistoryListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
 	    {
+	        await PopupService.ShowLoadingAsync();
+
 	        var item = (CalculatorItem) e.SelectedItem;
 
 	        Navigation.InsertPageBefore(new CalculatorPage(item.Expression, item.Result),
 	            Navigation.NavigationStack[0]);
 	        await Navigation.PopToRootAsync();
-        }
+
+	        await PopupService.HideLastPopupAsync();
+	    }
 
 	    private void MoveToLastButton_OnClicked(object sender, EventArgs e)
 	    {

@@ -34,8 +34,7 @@
                    Style="{StaticResource NavBarLabelStyle}"
                    Grid.Column="0"/>
 
-            <tinted:TintedImage x:Name="HistoryButton"
-                                Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
+            <tinted:TintedImage Source="{x:Static helpers:ConstantHelper.HistoryIcon}"
                                 Style="{StaticResource NavBarIconStyle}"
                                 Grid.Column="1">
                 <tinted:TintedImage.GestureRecognizers>
@@ -44,8 +43,7 @@
                 </tinted:TintedImage.GestureRecognizers>
             </tinted:TintedImage>
 
-            <tinted:TintedImage x:Name="CalculatorButton"
-                                Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
+            <tinted:TintedImage Source="{x:Static helpers:ConstantHelper.CalculatorIcon}"
                                 Style="{StaticResource NavBarIconStyle}"
                                 Grid.Column="2">
                 <tinted:TintedImage.GestureRecognizers>

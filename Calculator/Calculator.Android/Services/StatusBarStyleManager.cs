@@ -1,8 +1,8 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using Calculator.Droid.Services;
 using Calculator.Services;
+using Plugin.CurrentActivity;
 using Xamarin.Forms;
 using static Android.Graphics.Color;
 
@@ -39,9 +39,7 @@ namespace Calculator.Droid.Services
 
         private static Window GetCurrentWindow()
         {
-            //var context = Android.App.Application.Context;
-            var context = Forms.Context;
-            var activity = (Activity) context;
+            var activity = CrossCurrentActivity.Current.Activity;
             var window = activity.Window;
 
             window.ClearFlags(WindowManagerFlags.TranslucentStatus);

@@ -10,8 +10,8 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -26,8 +26,8 @@
 	<string>Calculator</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.Lidchanin.Calculator</string>
-  <key>CFBundleShortVersionString</key>
-  <string>1.1</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>2.0</string>
 	<key>UILaunchStoryboardName</key>

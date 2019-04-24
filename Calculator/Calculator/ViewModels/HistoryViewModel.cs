@@ -19,13 +19,17 @@ namespace Calculator.ViewModels
 
         public async Task InitData()
         {
+            await PopupService.ShowLoadingAsync();
             CalculatorItems = new ObservableCollection<CalculatorItem>(await App.Database.GetAll());
+            await PopupService.HideLastPopupAsync();
         }
 
         private async void ClearHistory()
         {
+            await PopupService.ShowLoadingAsync();
             await App.Database.DeleteAll();
             CalculatorItems = new ObservableCollection<CalculatorItem>();
+            await PopupService.HideLastPopupAsync();
         }
     }
 }

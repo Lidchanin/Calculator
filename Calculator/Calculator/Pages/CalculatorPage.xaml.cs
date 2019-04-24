@@ -37,16 +37,16 @@ namespace Calculator.Pages
 
         private async void ThemesButton_OnTapped(object sender, EventArgs e)
         {
-            ThemesButton.IsEnabled = false;
+            await PopupService.ShowLoadingAsync();
             await Navigation.PushAsync(new ThemesPage());
-            ThemesButton.IsEnabled = true;
+            await PopupService.HideLastPopupAsync();
         }
 
         private async void HistoryButton_OnTapped(object sender, EventArgs e)
         {
-            HistoryButton.IsEnabled = false;
+            await PopupService.ShowLoadingAsync();
             await Navigation.PushAsync(new HistoryPage());
-            HistoryButton.IsEnabled = true;
+            await PopupService.HideLastPopupAsync();
         }
 
         private void ClearButton_OnPressed(object sender, EventArgs e)
