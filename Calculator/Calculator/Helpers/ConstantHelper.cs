@@ -43,6 +43,7 @@
 
         #region Filenames
 
+        public const string AppIcon = "icon.png";
         public const string PaletteIcon = "palette_icon.png";
         public const string HistoryIcon = "history_icon.png";
         public const string CalculatorIcon = "calculator_icon.png";

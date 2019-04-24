@@ -8,7 +8,7 @@ using Plugin.CurrentActivity;
 namespace Calculator.Droid
 {
     [Activity(Label = "Calculator",
-        Icon = "@mipmap/icon",
+        Icon = "@drawable/icon",
         Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, 
         ScreenOrientation = ScreenOrientation.Portrait)]
